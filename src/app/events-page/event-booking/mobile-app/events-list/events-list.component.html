@@ -1,0 +1,83 @@
+<div class="mobile-wrapper">
+    <div class="mobile-header" #insideElement>
+        <div id="mySidepanel" class="sidepanel" [class.opened]="sideNavOpen">
+            <div class="menu_header">
+                <div class="closebtn" (click)="closeNav()">×</div>
+                <h2 class="user_name" routerLink="/"></h2>
+                <p class="username">{{userDisplayName}} {{userDisplaylastName}}</p>
+            </div>
+            <ul>
+                <li class="user_list icon membership"><i></i><a href="#">Upgrade Membership</a></li>
+                <li class="user_list icon"><a (click)="menuTabChange(1)">Stadium Events</a></li>
+                <li class="icon logout"><i></i><a (click)="logout()">Logout</a></li>
+            </ul>
+        </div>
+        <button class="openbtn" (click)="openNav()" #openbtn>
+            <img src="/assets/SVG/hamburgIcon.svg" class="mob-icon">
+        </button>
+        <div class="mobile-logo"><a routerLink="/"></a></div>
+    </div>
+    <div class="stadium-list">
+        <tabset [justified]="true" #tabset>
+            <tab heading="Stadium Events" (selectTab)="tabChange($event)">
+                <div class="col-12 events-list">
+                    <h3 class="heading">List of Events</h3>
+                    <div class="spinner-wrapper" *ngIf="loading">
+                        <p-progressSpinner strokeWidth="2" [style]="{width: '50px', height: '50px'}">
+                        </p-progressSpinner>
+                    </div>
+                    <div *ngIf="noEventsData" class="no-events">We have no upcoming events.</div>
+                    <ul class="list" *ngIf="!loading && !noEventsData">
+                        <ng-container *ngFor="let event of stadiumEventsList">
+                            <li>
+                                <span (click)="openTicketPage(event)"
+                                    >{{event.name}}</span>
+                                <a *ngIf="event.pdfUrl" (click)="downloadEventDoc(event)"><img class="download pr-1"
+                                        src="/assets/SVG/document.svg">Event Details</a>
+                                <div class="event-info"
+                                (click)="openTicketPage(event)" >
+                                    <span *ngIf="event.day" class="day">Test Match - Day {{event.day}}</span>
+                                    <span *ngIf="event.purchasedTickets" class="purchased">Purchased<span> -
+                                            {{event.purchasedTickets}}</span></span>
+                                    <span *ngIf="!event.saleClosed && event.remainingSeats === 0 && event.remainingDiningSeats === 0" class="sold">Sold Out</span>
+                                    <span *ngIf="event.saleClosed" class="sold">Sales Closed</span>
+                                    <span *ngIf="!event.canSaleEventSheet" class="purchased">Sale not started</span>
+                                </div>
+                                <p [innerHTML]="event.description" *ngIf="event.description"
+                                (click)="openTicketPage(event)" ></p>
+                            </li>
+                        </ng-container>
+                    </ul>
+                </div>
+            </tab>
+        </tabset>
+    </div>
+</div>
+
+
+<!-- Membership Expired -->
+<p-dialog #dialog header="Membership Expired" [(visible)]="memberShipExpired" [modal]="true" *ngIf="memberShipExpired"
+    [draggable]="false" [resizable]="false" styleClass="cutom-modal" [closable]="false">
+    <div class="body-content">
+        <div class="container p-3">{{memberShipName}} aren’t able to buy tickets.
+            Please contact Admin or Renew you Membership Plan.</div>
+    </div>
+    <p-footer>
+        <button type="button" class="btn btn-gold mb-2"><a class="btn_popup"
+                href="https://www.qcclub.com.au/membership-packages/">Pay Proceed To Form</a></button>
+    </p-footer>
+</p-dialog>
+
+
+<!-- Upgrade Membership -->
+<p-dialog #dialog header=" Upgrade Your Membership" [(visible)]="display" [modal]="true" *ngIf="display"
+    [draggable]="false" [resizable]="false" styleClass="cutom-modal">
+    <div class="body-content">
+        <div class="container p-3">{{memberShipName}} aren’t able to buy tickets to stadium events.
+            Please complete member application form to upgrade your membership.</div>
+    </div>
+    <p-footer>
+        <button type="button" class="btn btn-gold mb-2"><a class="btn_popup"
+                href="https://www.qcclub.com.au/membership-packages/">Pay Proceed To Form</a></button>
+    </p-footer>
+</p-dialog>

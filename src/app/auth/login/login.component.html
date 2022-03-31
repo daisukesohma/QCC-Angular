@@ -1,0 +1,76 @@
+<div class="limiter">
+	<div class="container-login100">
+		<div class="wrap-login100">
+
+			<form class="login100-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+				<span class="login100-form-logo">
+					<img src="../../../assets/SVG/Dummy-Logo12.svg" routerLink="/">
+				</span>
+
+
+				<div class="wrap-input100">
+					<input class="input100" type="email" placeholder="Email / Member Number*" class="form-control"
+						formControlName="username" name="username" [(ngModel)]=" loginData.username">
+					<div *ngIf="loginForm.controls['username'].invalid && 
+						(loginForm.controls['username'].dirty || loginForm.controls['username'].touched  && loginForm.controls['username'].errors.required )"
+						class="col-sm-12 col-md-12 col-lg-12" style="padding: 2px;">
+						<div class="alert alert-danger list-inline-item"
+							*ngIf="loginForm.controls['username'].errors.required">
+							Please enter your email/member number.
+						</div>
+						<p *ngIf="loginForm.controls.username.touched && loginForm.controls.username.hasError('pattern')"
+							style="color:#EE5333">Email should be the real one!</p>
+					</div>
+
+				</div>
+
+
+				<div class="wrap-input100">
+					<input class="input100" type="password" formControlName="password" placeholder="Password*"
+						class="form-control" name="pass" [(ngModel)]=" loginData.password">
+					<div *ngIf="loginForm.controls['password'].invalid && 
+						(loginForm.controls['password'].dirty || loginForm.controls['password'].touched && loginForm.controls['password'].errors.required)"
+						class="col-sm-12 col-md-12 col-lg-12" style="padding: 2px;">
+						<div class="alert alert-danger list-inline-item"
+							*ngIf="loginForm.controls['password'].errors.required">
+							Please enter your password.
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-12 text-center">
+						<div class="alert alert-danger text-center blink_me" *ngIf="loginMessage">
+							{{loginMessage}}
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-12 text-right">
+						<a class="txt1" routerLink="/forget-password">
+							Forgot Password?
+						</a>
+					</div>
+				</div>
+				<div class="wrong_data" *ngIf="error"> {{message}} </div>
+				<div class="container-login100-form-btn">
+					<button class="login100-form-btn" type="submit" [disabled]="!loginForm.valid">
+						Login
+					</button>
+				</div>
+
+				<div class="memauth">
+					Not a member yet?
+					<a href="https://www.qcclub.com.au/membership-packages/">Become a member</a> or <a href="#"
+						routerLink="/register">Register as a reciprocal
+						member</a>
+				</div>
+
+
+			</form>
+		</div>
+	</div>
+</div>
+
+<div id="dropDownSelect1"></div>

@@ -1,0 +1,458 @@
+.main-wrapper {
+  display: flex;
+  flex-direction: row;
+  height: auto !important;
+  align-items: flex-start;
+}
+.main-wrapper .side-bar {
+  flex: 25%;
+}
+.main-wrapper .body-wrapper {
+  flex: 75%;
+}
+.custom-outline {
+  outline: 1px solid #eeeeee;
+}
+.site-logo {
+  display: block;
+  width: 100px;
+}
+.nav-wrapper {
+  width: 100%;
+  height: 230px;
+  padding: 20px 44px;
+  color: #fff;
+  font-family: "Arial";
+  font-size: 16px;
+}
+.page-heading {
+  text-transform: uppercase;
+  font-size: 26px;
+}
+.nav-wrapper.QC500 {
+  background: url(../../../assets/images/banners/QC500.svg);
+}
+
+.btn-purple.QC500 {
+  background: #38c2b3 !important;
+}
+
+.nav-wrapper.platinum {
+  background: url(/assets/images/banners/Platinum.svg);
+}
+
+.btn-purple.platinum {
+  background: #8e8e8e !important;
+}
+
+.nav-wrapper.qcLocal {
+  background: url(/assets/images/banners/QC\Local.svg);
+}
+
+.btn-purple.qcLocal {
+  background: #c2792f !important;
+}
+
+.nav-wrapper.social {
+  background: url(/assets/images/banners/Social.svg);
+}
+
+.btn-purple.social {
+  background: #ab9154 !important;
+}
+
+.nav-wrapper.corporate {
+  background: url(/assets/images/banners/corporate.svg);
+}
+
+.btn-purple.corporate {
+  background: #2f80c2 !important;
+}
+
+.nav-wrapper.individual {
+  background: url(/assets/images/banners/Individual.svg);
+}
+
+.btn-purple.individual {
+  background: #8b47c5 !important;
+}
+
+.reciprocal {
+  background: url(/assets/images/banners/reciprocal.svg);
+}
+
+.btn-purple.reciprocal {
+  background: #2fc2b3;
+}
+
+.banner-wrapper {
+  width: 100%;
+  height: 180px;
+  border-radius: 10px;
+}
+
+.banner-wrapper img {
+  width: 100%;
+  height: 100%;
+}
+
+.menu ul {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.menu li span {
+  cursor: pointer;
+}
+
+.menu > ul > li > ul > li {
+  padding: 0 30px;
+  display: flex;
+}
+
+.menu > ul > li > ul > li:last-child {
+  padding-right: 0;
+}
+
+.menu > ul > li > ul > li + li {
+  border-left: 1px solid #8c8c8c;
+}
+
+.icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.icon i {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.icon.notification i {
+  background: url(/assets/images/icons/notification.svg) center center no-repeat;
+  margin: 0;
+}
+
+.icon.logout i {
+  background: url(/assets/images/icons/logout.svg) center center no-repeat;
+}
+
+.content-wrapper {
+  margin-top: 110px;
+  padding: 0 44px;
+}
+
+.table {
+  table-layout: fixed;
+}
+
+.table thead th {
+  font-family: "Arial";
+  font-size: 14px;
+  font-weight: normal;
+  color: #808080;
+  border-top: 0;
+  border-bottom-width: 1px;
+}
+
+.table tbody tr + tr td {
+  border-top: 1px solid #dee2e6;
+}
+
+.table tbody td {
+  vertical-align: middle;
+}
+
+.table tbody td:first-child {
+  font-family: "ArialBd";
+  font-size: 16px;
+}
+
+.table tbody td.selected div {
+  display: flex;
+  flex-direction: column;
+}
+
+.table tbody td.selected div span:first-child {
+  color: #530f8e;
+}
+
+.table tbody td.selected div span + span {
+  font-family: "OpenSans-Regular_0";
+  font-size: 14px;
+}
+
+.form-control {
+  font-family: "Arial";
+}
+
+.input-group-text,
+.form-control[readonly] {
+  height: auto;
+  background-color: #fff;
+  border-color: #b7b7b7;
+  padding: 4px 10px;
+  text-align: center;
+  font-size: 14px;
+}
+.form-control[readonly].purchased {
+  background: #f5f8fe !important;
+}
+
+.input-group-text:hover {
+  background: #e9ecef;
+}
+
+.form-control:focus {
+  box-shadow: none;
+}
+
+.counter {
+  width: 130px;
+}
+
+.input-group-prepend,
+.input-group-append {
+  cursor: pointer;
+}
+
+.cell-content {
+  display: flex;
+  align-items: center;
+  height: 34px;
+}
+
+.eventName {
+  width: 20%;
+}
+
+.btn_popup {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+/* .memberPrice {
+    width: 115px;
+}
+.guestTickets, .restaurant {
+    width: 185px;
+}
+.tickets {
+    width: 170px;
+}
+.guests {
+    width: 80px;
+} */
+.download {
+  width: 18px;
+  cursor: pointer;
+  padding-right: 0px !important;
+}
+
+.input-group-text.disabled {
+  pointer-events: none;
+  background: #eee;
+}
+
+.input-group-prepend.not-allowed,
+.input-group-append.not-allowed {
+  cursor: not-allowed;
+}
+
+.text-primary.disabled {
+  cursor: not-allowed;
+  text-decoration: none !important;
+  color: grey !important;
+}
+
+.text-primary.disabled:hover {
+  /* pointer-events: none !important; */
+  text-decoration: none !important;
+}
+
+/**
+new **/
+.stadiumSeat {
+  width: 155px;
+}
+
+.stadiumSeatTickets {
+  width: 165px;
+}
+
+.guestTickets,
+.satdiumDining,
+.familyLinking {
+  width: 120px;
+}
+
+.diningTickets {
+  width: 185px;
+}
+
+.resturant {
+  width: 165px;
+}
+
+.diningTickets div {
+  display: flex;
+  justify-content: center;
+}
+
+.linking {
+  height: 31px;
+}
+
+.guestTicketPrice {
+  width: 130px;
+}
+
+.compTicket {
+  width: 180px;
+}
+
+.closed {
+  color: #828282;
+}
+
+.text-primary {
+  cursor: pointer;
+  padding: 5px;
+}
+
+.text-primary:hover {
+  text-decoration: underline !important;
+}
+
+.btn.btn-gold.memberButton {
+  padding: 10px 30px;
+}
+.purchased {
+  background: #ede8db !important;
+}
+::ng-deep body .ui-table .ui-table-tbody > tr > td {
+  padding: 5px 10px;
+}
+.frozenHeader {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.frozenHeader > div:first-child {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+.frozenHeader div:first-child p {
+  margin: 0px;
+}
+
+.arrow-container .day-container {
+  display: flex;
+  width: 100%;
+}
+
+.sales-section {
+  padding: 4px;
+  background-color: rgb(247, 60, 47, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.day-class {
+  display: flex;
+  width: 80px;
+  background-color: #dcdcdc;
+  align-items: center;
+  position: relative;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 4px 0;
+}
+
+.arrow-right {
+  width: 0;
+  height: 0;
+  border-top: 13px solid transparent;
+  border-bottom: 13px solid transparent;
+  border-left: 7px solid #dcdcdc;
+  position: absolute;
+  right: -7px;
+}
+
+.arrow-container {
+  display: flex;
+  font-size: 11px;
+  border-radius: 4px;
+  overflow: hidden;
+  flex-direction: column;
+  margin-top: 5px;
+  width: 100%;
+}
+
+.arrow-container .purchased-class {
+  width: 100%;
+  display: flex;
+  background-color: #eee;
+  align-items: center;
+  padding: 4px 0;
+  justify-content: center;
+}
+.purchase-section {
+  padding-right: 15px;
+  padding-left: 20px;
+  position: relative;
+  white-space: pre;
+}
+
+.price-section {
+  display: flex;
+  align-items: baseline;
+  font-size: 16px;
+}
+
+.price-section div:first-child {
+  font-size: 14px;
+}
+
+.pay-btn {
+  display: flex;
+}
+
+.pay-btn > div:last-child {
+  display: flex;
+  align-items: baseline;
+  margin-left: 3px;
+}
+.pay-btn > div:last-child > div:first-child {
+  font-size: 14px;
+}
+.pay-btn > div:last-child > div:last-child {
+  margin-left: 1px;
+  font-size: 18px;
+}
+
+::ng-deep .event-name.ui-table .ui-table-tbody > tr {
+  height: 86px;
+}
+
+::ng-deep .event-name .ui-table-scrollable-body {
+  border: 0px;
+  border-right: 1px solid #eeeeee;
+}
+::ng-deep .event-name .ui-table-scrollable-header.ui-widget-header {
+  border-bottom: 1px solid #eeeeee;
+}
+
+.event-name.ui-table .ui-table-tbody > tr:first-child {
+  border-top: 0px;
+}
+
+.event-name.ui-table .ui-table-tbody > tr:first-child {
+  border-top: 0px;
+}

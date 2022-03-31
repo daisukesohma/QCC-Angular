@@ -1,0 +1,36 @@
+<nav class="navbar fixed-top navbar-expand-lg navbar-light"
+  [ngClass]="{'bg-white': sticky, 'not-homepage': router.url !== '/events'}" #insideElement>
+  <div class="container">
+    <a class="navbar-brand pt-0" (click)="reloadPage()" routerLink="/">
+      <img [src]="src" alt="" title=""></a>
+    <button class="navbar-toggler"
+        [ngClass]="{'bg-white': sticky}" 
+        data-toggle="collapse" data-target="#collapsibleNavbar" type="button"
+      (click)="toggleState()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar" [ngClass]="{ 'show': isIn }">
+      <ul class="navbar-nav ml-auto" *ngIf="eventService.userDetails">
+        <ng-container *ngIf="router.url === '/events'">
+          <li class="nav-item" [ngx-scroll-to]="aflRef" *ngIf="aflData && aflData.length > 0"><a>AFL</a></li>
+          <li class="nav-item" [ngx-scroll-to]="cricketRef" *ngIf="cricketData && cricketData.length > 0"><a>Cricket</a></li>
+          <li class="nav-item" [ngx-scroll-to]="eventsRef"><a>Events</a>
+          </li>
+        </ng-container>
+        <ng-container *ngIf="router.url !== '/events'">
+          <li class="nav-item" routerLink="/" *ngIf="aflData && aflData.length > 0"><a>AFL</a></li>
+          <li class="nav-item" routerLink="/" *ngIf="cricketData && cricketData.length > 0"><a>Cricket</a></li>
+          <li class="nav-item" routerLink="/"><a>Events</a>
+          </li>
+        </ng-container>
+        <li class="nav-item"  *ngIf="userLoggedIn"(click)="logout()"><a [ngClass]="{ 'login': !isIn }">Logout</a></li>
+        <li class="nav-item pr-2" *ngIf="!userLoggedIn" routerLink="/login"><a [ngClass]="{ 'login': !isIn }"
+            routerLinkActive="active">Login</a></li>
+        <li class="nav-item" *ngIf="!userLoggedIn" routerLink="/register"><a [ngClass]="{ 'register': !isIn }"
+            routerLinkActive="active">Register Now</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>

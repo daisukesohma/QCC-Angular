@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1121" height="196" viewBox="0 0 1121 196">
+  <defs>
+    <linearGradient id="linear-gradient" x1="1" x2="0.3" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#8e8e8e"/>
+      <stop offset="0.669" stop-color="#d4d4d4"/>
+      <stop offset="1" stop-color="#6c6b6b"/>
+    </linearGradient>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_472" data-name="Rectangle 472" width="1121" height="196" fill="url(#linear-gradient)"/>
+    </clipPath>
+    <clipPath id="clip-path-2">
+      <circle id="Ellipse_191" data-name="Ellipse 191" cx="349.5" cy="349.5" r="349.5" transform="translate(11581 2839)" fill="#333" opacity="0.17"/>
+    </clipPath>
+    <clipPath id="clip-path-3">
+      <circle id="Ellipse_190" data-name="Ellipse 190" cx="118" cy="118" r="118" transform="translate(12524 3259)" fill="#1d1d1d" opacity="0.17"/>
+    </clipPath>
+  </defs>
+  <g id="Mask_Group_40" data-name="Mask Group 40" clip-path="url(#clip-path)">
+    <rect id="Rectangle_470" data-name="Rectangle 470" width="1121" height="196" fill="url(#linear-gradient)"/>
+    <g id="Mask_Group_39" data-name="Mask Group 39" transform="translate(-11453 -3279)" opacity="0.05" clip-path="url(#clip-path-2)">
+      <rect id="Rectangle_471" data-name="Rectangle 471" width="1121" height="195" transform="translate(11453 3279)" fill="#333"/>
+    </g>
+    <g id="Mask_Group_38" data-name="Mask Group 38" transform="translate(-11453 -3279)" opacity="0.09" clip-path="url(#clip-path-3)">
+      <rect id="Rectangle_469" data-name="Rectangle 469" width="1121" height="196" transform="translate(11453 3279)" fill="#1d1d1d"/>
+    </g>
+  </g>
+</svg>

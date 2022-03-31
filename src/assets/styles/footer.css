@@ -1,0 +1,36 @@
+footer {
+    background-color: #1A1A1A;
+    color: #FFFFFF;
+    height: auto;
+    line-height: 40px;
+}
+
+.list-inline-item a {
+    color: #FFFFFF !important;
+    font-family: 'Arial' !important;
+    cursor: pointer !important;
+}
+
+footer ul {
+    font-size: 14px;
+    font-family: Regular, Arial;
+    margin: 0;
+}
+
+footer p {
+    font-size: 14px;
+    margin: auto;
+    font-family: 'Arial';
+}
+
+footer .list-inline-item:not(:last-child) {
+    border-right: 1px solid #FFFFFF;
+    padding-right: 5px;
+    letter-spacing: 0;
+    line-height: 20px;
+    height: 20px;
+    border-color: rgba(255,255,255,0.3) !important;
+}
+.copyright{
+    padding-left: 0;
+}

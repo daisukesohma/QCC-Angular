@@ -1,0 +1,202 @@
+* {
+    outline: none !important;
+}
+body {
+    font-family: 'OpenSans-Regular_0';
+    font-size: 14px;
+}
+
+/*** Common Spinner ***/
+.spinner-wrapper {
+    position: relative;
+}
+
+.spinner-wrapper .ui-progress-spinner {
+    position: absolute;
+    background: none;
+    top: 100px;
+}
+
+/*------End-------*/
+html,
+body,
+.main-wrapper {
+    height: 100%;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+.c-pointer {
+    cursor: pointer;
+}
+
+.main-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
+.content {
+    width: 100%;
+    height: 100%;
+}
+
+.footer {
+    flex-shrink: 0;
+}
+
+p {
+    font-family: 'Arial';
+}
+
+.pull-right {
+    float: right;
+}
+
+.required::after {
+    content: '*';
+    color: red;
+}
+
+.btn {
+    border-radius: 24px;
+    color: #fff;
+    padding: 15px 30px;
+    line-height: 16px;
+}
+.input-warn {
+    border-color: red;
+}
+.btn.btn-gold {
+    background: #A38847;
+    border: 1px solid #FFECBF;
+}
+
+.btn.btn-gold:hover {
+    background: #c7a85f;
+    color: #fff;
+}
+
+.btn.btn-gold:focus {
+    box-shadow: none;
+}
+
+.btn.btn-purple {
+    background: #530F8E;
+}
+
+.btn.btn-purple:disabled:hover {
+    background: #530F8E;
+    cursor: not-allowed;
+}
+
+.btn.btn-purple:hover {
+    background: #8b47c5;
+    color: #fff;
+}
+
+.theme-green .bs-datepicker-head {
+    background-color: #383f46 !important;
+}
+
+.owl-theme .owl-nav .owl-next {
+    color: #000 !important;
+    font-size: 18px !important;
+    margin: 0px !important;
+    padding: 10px 18px !important;
+    background: #fff !important;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    right: -10px !important;
+    top: 45% !important;
+    border-radius: 61px !important;
+    cursor: pointer;
+    position: absolute;
+}
+
+.owl-theme .owl-nav .owl-prev {
+    color: #000 !important;
+    font-size: 18px !important;
+    margin: 0px !important;
+    padding: 10px 18px !important;
+    background: #fff !important;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
+    left: -11px !important;
+    top: 45% !important;
+    border-radius: 61px !important;
+    cursor: pointer;
+    position: absolute;
+}
+
+.fa-chevron-left:before {
+    content: "❮";
+    top: 10px;
+    right: 10px;
+    width: 25px;
+    font-size: 15px;
+    text-align: center;
+}
+
+.fa-chevron-right:before {
+    content: "❯";
+    top: 10px;
+    right: 10px;
+    width: 25px;
+    font-size: 15px;
+    text-align: center;
+}
+
+
+/** Prime NG Table **/
+body .ui-table .ui-table-thead>tr>th {
+    background: none;
+    border: none;
+    font-weight: normal;
+    padding: 14px 10px;
+    color: #808080;
+    font-family: 'Arial';
+}
+
+body .ui-table .ui-table-tbody>tr:nth-child(even) {
+    background: none;
+}
+
+body .ui-table .ui-table-tbody>tr>td {
+    border-width: 1px 0 0 0;
+    border-top-color: #eeeeee;
+    padding: 14px 10px;
+}
+
+/** primeng Toast message **/
+
+.ui-toast .ui-toast-message-text-content {
+    padding: .25em !important;
+}
+.ui-toast .ui-toast-icon {
+    position: absolute;
+    display: inline-block;
+    left: .5em;
+    top: 0.35em;
+    padding: 0;
+    font-size: 25px;
+}
+
+.content-wrapper .ui-table .ui-table-scrollable-wrapper {
+    border: 1px solid #eeeeee;
+}
+
+.content-wrapper .ui-table-scrollable-header.ui-widget-header {
+    background-color: #fafbff;
+}
+
+.content-wrapper .ui-table-scrollable-body {
+    border: 1px solid #eeeeee;
+    padding-bottom: 0 !important;
+}
+
+body .ui-dialog {
+    max-width: 600px;
+}

@@ -1,0 +1,23 @@
+<h3 *ngIf="upCommingEventsData.length > 0">Related Events</h3>
+<div *ngFor='let upCommingEvents of upCommingEventsData' class="right-widget recent-post">
+    <div class="row side-card m-0" [routerLink]="['/events-detail',upCommingEvents.id]" (click)="updateEvent(upCommingEvents.id)">
+        <div class="col-md-6 p-0">
+            <div class="rb-box-img">
+                <img src={{upCommingEvents.smallImageUrl}} alt="Card image cap" />
+            </div>
+        </div>
+        <div class="col-md-6 p-0 smt-2">
+            <div class="row m-0">
+                <div class="col-6 p-0">
+                    <h4>{{upCommingEvents.name}}</h4>
+                </div>
+                <div class="col-6 dates p-0 text-right">
+                    <p><span class="date">{{upCommingEvents.startDate | date:'dd MMM yyyy'}}</span></p>
+                </div>
+            </div>
+            <p class="card-text" [innerHTML]="upCommingEvents.description" *ngIf="upCommingEvents.description" ></p>
+            <span class="d-block" [routerLink]="['/events-detail',upCommingEvents.id]" (click)="updateEvent(upCommingEvents.id)">View
+                More</span>
+        </div>
+    </div>
+</div>

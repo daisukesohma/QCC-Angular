@@ -1,0 +1,76 @@
+@font-face {
+    font-family: 'Arial';
+    src: url("./Arial/arial.ttf") format("truetype");
+}
+@font-face {
+    font-family:'ArialBd';
+    src: url("./Arial/arialbd.ttf") format("truetype");
+}
+@font-face {
+    font-family:'Open Sans-BoldItalic_1';
+    src: url("./Open Sans/OpenSans-BoldItalic_1.ttf") format("truetype");
+}
+@font-face {
+    font-family:'Open Sans-Bold_0';
+    src: url("./Open Sans/OpenSans-Bold_0.ttf") format("truetype");
+}
+@font-face {
+    font-family:'OpenSans-ExtraBoldItalic';
+    src: url("./Open Sans/OpenSans-ExtraBoldItalic.ttf") format("truetype");
+}
+@font-face {
+    font-family:'OpenSansCondensed-Bold';
+    src: url("./Open Sans/OpenSansCondensed-Bold.ttf") format("truetype");
+}
+@font-face {
+    font-family:'OpenSansCondensed-Light';
+    src: url("./Open Sans/OpenSansCondensed-Light.ttf") format("truetype");
+}
+@font-face {
+    font-family:'OpenSansCondensed-LightItalic';
+    src: url("./Open Sans/OpenSansCondensed-LightItalic.ttf") format("truetype");
+}
+@font-face {
+    font-family:'OpenSans-ExtraBold_0';
+    src: url("./Open Sans/OpenSans-ExtraBold_0.ttf") format("truetype");
+}
+@font-face {
+    font-family:'OpenSans-Italic_1';
+    src: url("./Open Sans/OpenSans-Italic_1.ttf") format("truetype");
+}
+@font-face {
+    font-family:'OpenSans-Light';
+    src: url("./Open Sans/OpenSans-Light.ttf") format("truetype");
+}
+@font-face {
+    font-family:'OpenSans-LightItalic';
+    src: url("./Open Sans/OpenSans-LightItalic.ttf") format("truetype");
+}
+@font-face {
+    font-family:'OpenSans-Regular_0';
+    src: url("./Open Sans/OpenSans-Regular_0.ttf") format("truetype");
+}
+@font-face {
+    font-family:'OpenSans-SemiBold';
+    src: url("./Open Sans/OpenSans-SemiBold.ttf") format("truetype");
+}
+@font-face {
+    font-family:'OpenSans-SemiBoldItalic';
+    src: url("./Open Sans/OpenSans-SemiBoldItalic.ttf") format("truetype");
+}
+@font-face {
+    font-family:'Sitka';
+    src: url("./Sitika Banner/Sitka.ttc") format("ttc");
+}
+@font-face {
+    font-family:'SitkaB';
+    src: url("./Sitika Banner/SitkaB.ttc") format("ttc");
+}
+@font-face {
+    font-family:'SitkaI';
+    src: url("./Sitika Banner/SitkaI.ttc") format("ttc");
+}
+@font-face {
+    font-family:'SitkaZ';
+    src: url("./Sitika Banner/SitkaZ.ttc") format("ttc");
+}

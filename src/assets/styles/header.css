@@ -1,0 +1,245 @@
+#header {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  transition: all 0.5s;
+  z-index: 997;
+}
+
+#header.sticky {
+  position: fixed;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 0px 11px #00000029;
+  transition: none;
+}
+
+#header.header-scrolled,
+#header.header-fixed {
+  background: rgba(6, 12, 34, 0.98);
+  height: 70px;
+  padding: 15px 0;
+  transition: all 0.5s;
+}
+
+i.fa.fa-bars {
+  color: #fff;
+}
+
+.banner {
+  background: #191919 url(/assets/images/landing-banner.png) center center no-repeat padding-box;
+  width: 100%;
+  background-size: cover;
+  height: 350px;
+  overflow: hidden;
+  position: relative;
+}
+
+.banner-container {
+  margin-top: 175px;
+}
+
+.banner h1 {
+  color: #ffffff;
+  font-family: "Sitka";
+  font-size: 3rem;
+}
+
+.banner p {
+  color: #ffffff;
+  padding-left: 0;
+  font-family: "OpenSans-Light";
+  font-size: 16px;
+}
+
+@media screen and (min-width: 992px) {
+  .banner h1 {
+    font-size: 4rem;
+  }
+
+  .banner-container {
+    margin-top: 150px;
+  }
+
+  .banner p {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 933px) {
+  .banner-container {
+    margin-top: 140px;
+  }
+
+  .banner {
+    height: 300px;
+  }
+
+  #header {
+    padding: 0;
+  }
+
+  .banner h2 {
+    font-size: 20px;
+  }
+
+  .banner p {
+    font-size: 12px;
+  }
+}
+
+.navbar-brand img {
+  width: 80px;
+  margin-top: 13px;
+}
+
+.navbar .navbar-collapse.show .navbar-nav li {
+  padding: 10px 20px;
+}
+
+.navbar .navbar-collapse.show .navbar-nav li a {
+  color: #666666 !important;
+}
+
+.navbar .navbar-collapse .navbar-nav li {
+  padding: 15px;
+  font-size: 16px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.navbar .navbar-collapse .navbar-nav li:last-child {
+  padding-right: 10px;
+}
+
+.navbar.bg-white .navbar-collapse .navbar-nav li,
+.navbar.not-homepage .navbar-collapse .navbar-nav li {
+  color: #000 !important;
+  cursor: pointer;
+}
+
+.navbar .navbar-collapse .navbar-nav li a.register {
+  border-radius: 24px;
+  color: #fff;
+  background: #a38847;
+  border-color: #a38847;
+  padding: 9px 25px;
+  transition: color ease 0.2s;
+  font-size: 0.95em;
+}
+
+.navbar .navbar-collapse .navbar-nav li a.login {
+  border-radius: 24px;
+  border: 1px solid #fff;
+  color: #fff;
+  background: #676767;
+  padding: 9px 25px;
+  font-size: 0.95em;
+}
+.navbar .navbar-collapse .navbar-nav li:hover a.login,
+.navbar .navbar-collapse .navbar-nav li:hover a.register {
+  color: rgba(255,255,255,0.5) !important;
+  }
+.navbar.bg-white .navbar-collapse .navbar-nav li a.login {
+  border: none;
+}
+
+.navbar .navbar-toggler {
+  border: none;
+  outline: none;
+  height: 40px;
+}
+
+.navbar .navbar-collapse.show {
+  position: absolute;
+  width: calc(100% + 15px);
+  border-radius: 0;
+  left: 0;
+  background: #fff;
+  top: 90px;
+  padding: 5px 0;
+  box-shadow: 0 10px 10px #00000029;
+}
+
+.navbar {
+  box-shadow: 0px 0px 11px #00000029;
+  height: 90px;
+  padding: 0 15px;
+}
+
+.navbar-nav>li>a {
+  position: relative;
+  cursor: pointer;
+  text-decoration: none;
+  /* margin-left: 16px; */
+}
+
+.navbar-nav>li>a:before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -5px;
+  left: 0;
+  background-color: #a88c50;
+  visibility: hidden;
+  transition: all 0.3s ease-in-out 0s;
+}
+
+.navbar-nav li:hover>a.login:before,
+.navbar-nav li:hover>a.register:before {
+  visibility: hidden;
+}
+
+.navbar-nav li:hover>a {
+  color: #a88c50 !important;
+}
+
+.navbar-nav li:hover a:before {
+  visibility: visible;
+  width: 100%;
+}
+
+@media screen and (max-width: 767px) {
+  .banner h1 {
+    font-size: 2.5rem;
+  }
+
+  .banner-container {
+    margin-top: 140px;
+  }
+
+  .banner p {
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .banner h1 {
+    font-size: 3.2rem;
+    line-height: 1;
+  }
+
+  .banner-container {
+    margin-top: 120px;
+  }
+
+  .banner {
+    height: 320px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .banner h1 {
+    font-size: 2.5rem;
+    line-height: 1;
+  }
+
+  .banner-container {
+    margin-top: 120px;
+  }
+
+  .banner {
+    height: 300px;
+  }
+}

@@ -1,0 +1,27 @@
+<QCC-header></QCC-header>
+<section class="blog-detail mtb-40">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-7">
+        <div class="blog-left mb-4">
+          <div class="detail-img">
+            <img src={{upCommingEventsData.largeImageUrl}} alt="Card image cap" />
+          </div>
+          <h1>{{upCommingEventsData.name}}</h1>
+          <div class="posted-on date" *ngIf="upCommingEventsData.type !== 'concerts'">{{upCommingEventsData.startDate | date:'dd MMMM yyyy'}} @ {{upCommingEventsData.clubOpenTime}}</div>
+          <div class="posted-on date" *ngIf="upCommingEventsData.type === 'concerts'">{{upCommingEventsData.startDate | date:'dd MMMM yyyy'}}</div>
+          <h5 class="dress_standard" *ngIf="upCommingEventsData.type === 'concerts'">Club Open at: <p class="dress_standards_desc">{{upCommingEventsData.clubOpenTime}}</p></h5>
+          <h5 class="dress_standard" *ngIf="upCommingEventsData.type === 'concerts'">Game Start at: <p class="dress_standards_desc">{{upCommingEventsData.gameStartTime}}</p></h5>
+          <h5 class="dress_standard" *ngIf="upCommingEventsData.dressStandards">Dress Standards: <p class="dress_standards_desc">{{upCommingEventsData.dressStandards}}</p></h5>
+          <p class="blog-desc" [innerHTML]="upCommingEventsData.description" *ngIf="upCommingEventsData.description" ></p>
+          <a class="btn btn-gold" (click)="redirectMobileOrWeb(upCommingEventsData)" *ngIf="upCommingEventsData.category === 'stadium'"
+          [class.disabled]="!upCommingEventsData.canSaleEventSheet">Buy Tickets</a>
+        </div>
+      </div>
+      <div class="col-md-5 recentView">
+        <qcc-event-recent (updatedEventID)="getUpdatedEventId($event)"></qcc-event-recent>
+      </div>
+    </div>
+  </div>
+</section>
+<qcc-footer ></qcc-footer>

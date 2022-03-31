@@ -1,0 +1,257 @@
+<QCC-header></QCC-header>
+<form name="form" #paymentForm="ngForm" class="order-details-form col-12 p-0" *ngIf="!confirmation">
+    <div class="container-fluid container-login100 d-flex flex-wrap">
+        <div class="col-md-7 col-sm-12 wrap-login100 mb-4">
+            <p-steps [model]="items" class="step" [(activeIndex)]="activeIndex" styleClass="step"></p-steps>
+
+            <div class="container px-1 d-flex flex-wrap px-3" *ngIf="activeIndex === 1">
+                <!-- <form name="form" #form="ngForm" class="col-12 p-0 d-flex flex-wrap"> -->
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="firstName" class="required">First Name</label>
+                        <input type="text" class="form-control" required name="firstName" #firstName="ngModel"
+                            id="firstName" [(ngModel)]="invoiceData.address.firstName" placeholder="First Name">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="lastName" class="required">Last Name</label>
+                        <input type="text" class="form-control" id="lastName" required #lastName="ngModel"
+                            name="lastName" [(ngModel)]="invoiceData.address.lastName" placeholder="Last Name">
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-group">
+                        <label for="email" class="required">Email</label>
+                        <input type="text" class="form-control" id="email" required name="email"
+                            pattern="[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" (change)="trimValue($event);"
+                            [ngClass]="{'input-warn' : email.invalid && (email.dirty || email.touched)}"
+                            [(ngModel)]="invoiceData.address.email" #email="ngModel" placeholder="Email">
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-group">
+                        <label for="company">Company Name</label>
+                        <input type="text" class="form-control" id="company" name="company"
+                            [(ngModel)]="invoiceData.address.companyName" #companyName="ngModel"
+                            placeholder="Company Name">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="country" class="required">Country</label>
+                        <select class="form-control" id="country" name="country" required
+                            [(ngModel)]="invoiceData.address.country" #country="ngModel">
+                            <option value="Australia">Australia</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="state" class="required">State</label>
+                        <select class="form-control" id="state" name="state" required
+                            [(ngModel)]="invoiceData.address.state" #state="ngModel">
+                            <option value="NewSouthWales">New South Wales</option>
+                            <option value="Queensland">Queensland</option>
+                            <option value="southAfrica">South Australia</option>
+                            <option value="Tasmania">Tasmania</option>
+                            <option value="Victoria">Victoria</option>
+                            <option value="westernAustralia">Western Australia</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-group">
+                        <label for="streetAddress" class="required">Street Address</label>
+                        <input type="text" class="form-control" required name="streetAddress" id="streetAddress"
+                            [(ngModel)]="invoiceData.address.streetAddress" #streetAddress="ngModel"
+                            placeholder="Street Address">
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-group">
+                        <label for="suburb" class="required">Suburb</label>
+                        <input type="text" class="form-control" name="suburb" required id="suburb"
+                            [(ngModel)]="invoiceData.address.suburb" #suburb="ngModel" placeholder="Suburb">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="postalCode" class="required">Postal Code</label>
+                        <input type="text" class="form-control" name="postalCode" id="postalCode" required
+                            (keypress)="validateInt($event);" maxlength="6" [(ngModel)]="invoiceData.address.postalCode"
+                            #postalCode="ngModel" placeholder="Postal Code">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="mobile" class="required">Contact Number</label>
+                        <input type="text" class="form-control" required id="mobile" name="mobile" minlength="6"
+                            maxlength="15" [(ngModel)]="invoiceData.address.mobile" #mobile="ngModel"
+                            placeholder="Contact Number" (keypress)="validateInt($event);">
+                    </div>
+                </div>
+                <!-- </form> -->
+            </div>
+            <div class="container px-1 d-flex flex-wrap px-3" *ngIf="activeIndex === 2">
+                <tabset [justified]="true" class="col-12 pay-tab">
+                    <tab heading="Card" [active]="router.url === '/payment/Card'" (selectTab)="beforeTabChange($event)"
+                        *ngIf="userAuthData.paymentByCard">
+                        <div class="col-12 pt-4">
+                            <form>
+                                <div id="securepay-ui-container"></div>
+                                <button class="btn btn-gold mb-4 mr-4" (click)="mySecurePayUI.reset();">Reset</button>
+                                <button class="btn btn-gold mb-4" (click)="mySecurePayUI.tokenise();">Submit</button>
+                            </form>
+                        </div>
+                    </tab>
+                    <tab heading="PayPal" [active]="router.url === '/payment/PayPal'"
+                        (selectTab)="beforeTabChange($event)" *ngIf="userAuthData.paymentByPayPal">
+                        <div class="col-12 pt-4">
+                            <img src="../../assets/images/paypal.jpeg"  class="paypal" (click)="initiatePayPalPayment();"/>
+                            <!-- <div id="paypal-button-container"></div> -->
+                            <!-- <ngx-paypal [config]="payPalConfig"></ngx-paypal> -->
+                        </div>
+                    </tab>
+                    <tab heading="Invoice" [active]="router.url === '/payment/Invoice'"
+                        (selectTab)="beforeTabChange($event)" *ngIf="userAuthData.paymentByInvoice">
+                        <div class="col-12 pt-5 text-center">
+                            <a class="text-link">Are you sure that you want to pay using Invoice?</a>
+                            <div>
+                                <button class="btn btn-gold mt-4 mb-4"
+                                    (click)="dataToSend();payInvoice()">Confirm</button>
+                            </div>
+                        </div>
+                    </tab>
+                </tabset>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-12 mb-3 px-0 wrap-login100 order_details" *ngIf="activeIndex === 1">
+            <!-- <div class="wrap-login100 order_details"> -->
+            <div class="row m-0 px-4 confirmation_page">
+                <div class="col-12 text-center heading mb-2">
+                    Order Details
+                </div>
+
+                <!-- <div class="col-5 pb-2">
+                    Tickets (X {{totalTickets}}):
+                </div>
+                <br> -->
+                <div class="payment-table w-100">
+                    <table width="100%" cellpadding="0" cellspacing="0" class="table-fixed">
+                        <thead>
+                            <tr>
+                                <th>Event Name and Tickets</th>
+                                <th>Ticket Qty</th>
+                                <th>Ticket Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of eventPurchasedList">
+                                <td colspan="3">
+                                    <div>{{item.eventName}} &nbsp;&nbsp;<span *ngIf="item.day">Day {{item.day}}</span>
+                                    </div>
+                                    <table width="100%" cellpadding="0" cellspacing="0">
+                                        <tbody>
+                                            <tr *ngIf="item.memberTickets !== 0">
+                                                <td>Member Tickets</td>
+                                                <td>{{item.memberTickets}}</td>
+                                                <td>${{item.memberTicketPrice * item.memberTickets}}</td>
+                                            </tr>
+                                            <tr *ngIf="item.childTickets !== 0">
+                                                <td>Child Tickets</td>
+                                                <td>{{item.childTickets}}</td>
+                                                <td>${{item.childTicketPrice * item.childTickets}}</td>
+                                            </tr>
+                                            <tr *ngIf="item.guestTickets !== 0">
+                                                <td>Guest Tickets</td>
+                                                <td>{{item.guestTickets}}</td>
+                                                <td>${{item.guestTicketPrice * item.guestTickets}}</td>
+                                            </tr>
+                                            <tr *ngIf="item.restaurantTickets !== 0">
+                                                <td>Resturant Tickets</td>
+                                                <td>{{item.restaurantTickets}}</td>
+                                                <td>${{item.diningTicketPrice * item.restaurantTickets}}</td>
+                                            </tr>
+                                            <tr *ngIf="item.complementary !== 0">
+                                                <td>Complementary Tickets</td>
+                                                <td>{{item.complementary}}</td>
+                                                <td>$0</td>
+                                            </tr>
+                                            <ng-container *ngIf="item.familyLinking && item.familyLinking !== null">
+                                                <tr *ngFor="let item of item.familyLinking">
+                                                    <td>{{item.member}}</td>
+                                                    <td>1</td>
+                                                    <td>${{item.memberTicketPrice}}</td>
+                                                </tr>
+                                            </ng-container>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr *ngIf="totalDiscount !== 0">
+                                <td>Discount</td>
+                                <td>&nbsp;</td>
+                                <td>${{totalDiscount | number:'0.1-3'}}</td>
+                            </tr>
+                            <tr>
+                                <td>Total Payable Charges</td>
+                                <td>{{totalTickets}}</td>
+                                <td>${{discountedAmount}}</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="col-12 text-center mt-3">
+                    <button class="order replan mt-2 mr-2" routerLink="/stadium-event">
+                        Revise booking
+                    </button>
+                    <button class="order mt-2" type="button" (click)="validateTickets()" *ngIf="paymentForm.valid">
+                        Place Order
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="container-fluid container-login100 d-flex flex-wrap confirmation" *ngIf="confirmation">
+    <div class="col-md-7 col-sm-12 wrap-login100 mb-4 d-block">
+        <div class="col-12">
+            <img class="confirm" src="../../assets/SVG/Confirmation.svg">
+        </div>
+        <div class="col-12 text-center heading mt-2 mb-2">
+            Your ticket purchase was successful.
+        </div>
+        <div class="col-12 text-center sub-heading mt-2 mb-2">
+            Thank you for your purchase via
+            <ng-container *ngIf="invoiceData.paymentType === 'invoice'">
+                invoice
+            </ng-container>
+            <ng-container *ngIf="invoiceData.paymentType === 'card'">
+                SBI Credit Card **********1234
+            </ng-container>
+            <ng-container *ngIf="invoiceData.paymentType === 'paypal'">
+                PayPal
+            </ng-container>. An automated email with the payment details will be sent to your registered email shortly.
+            Please review the details carefully and contact us if you have any questions.
+        </div>
+    </div>
+</div>
+<qcc-footer></qcc-footer>
+
+<p-dialog #dialog header="Ticket Status" [(visible)]="soldOutMsgModal" [modal]="true" [draggable]="false"
+    [resizable]="false" styleClass="cutom-modal upgrade" [closable]="false" *ngIf="soldOutMsgModal">
+    <div class="body-content">
+        <div class="container p-3">{{soldOutMsg}}.</div>
+    </div>
+    <p-footer>
+        <button class="order replan mt-2 mr-2" routerLink="/stadium-event">
+            Replan
+        </button>
+        <!-- <button class="order replan mt-2 mr-2" (click)="soldOutMsgModal = false">
+            Continue
+        </button> -->
+    </p-footer>
+</p-dialog>

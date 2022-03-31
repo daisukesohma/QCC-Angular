@@ -1,0 +1,328 @@
+.mobile-header {
+  background: #530f8e;
+  padding: 10px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #585858;
+}
+.mobile-logo {
+  width: 50px;
+  height: 36px;
+  background: url(/assets/SVG/qcc-logo-white.svg) center no-repeat;
+  background-size: contain;
+}
+.icon-notif-bell {
+  position: relative;
+  width: 18px;
+  height: 36px;
+  background: url(/assets/Icons/icon-bell-white.svg) left center no-repeat;
+  background-size: contain;
+}
+.icon-notif-bell i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  position: absolute;
+  top: 9px;
+  right: -1px;
+  background: #ffb466;
+  border: 1px solid #d8d8d8;
+}
+
+::ng-deep .nav {
+  background: #530f8e;
+  color: #fff;
+  border: 0;
+}
+::ng-deep .nav-tabs .nav-link {
+  background: #530f8e;
+  color: #fff;
+  border: 0;
+}
+::ng-deep .nav-tabs .nav-link.active {
+  background: #530f8e;
+  color: #fff;
+  border: 0;
+  cursor: pointer;
+  border-bottom: 0;
+  font-weight: bold;
+}
+::ng-deep .nav-tabs .nav-link {
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: 20%;
+  margin-right: 20%;
+}
+.mobile-logo a {
+  width: 50px;
+  height: 36px;
+  display: block;
+}
+.heading {
+  font-size: 1.2rem;
+  margin: 0;
+  padding: 30px 0 20px;
+  font-weight: bold;
+}
+.openbtn{
+  background-color: transparent;
+  color: #FFFFFF;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+.sidepanel {
+  width: 250px;
+  height: 100%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: -250px;
+  background-color: #fff;
+  overflow-x: hidden;
+  transition: 0.5s;
+}
+.sidepanel.opened {
+  left: 0;
+  box-shadow: 0 0.5rem 1rem 0 #00000029;
+}
+.menu_header{
+  padding: 14px 30px 30px;
+  background-color: #F1F1F1;
+}
+
+.sidepanel a {
+  padding: 8px 8px 8px 10px;
+  text-decoration: none;
+  font-family: 'OpenSans-Regular_0';
+  font-size: 16px;
+  color: #818181;
+  cursor: pointer;
+  display: contents;
+  transition: 0.3s;
+}
+
+.sidepanel a:hover {
+  color: #2d2d2d;
+}
+
+.menu_header .closebtn {
+  top: 0;
+  right: 15px;
+  position: absolute;
+  font-size: 25px;
+  cursor: pointer;
+}
+  .user_name{
+    width: 84px;
+    height: 74px;
+    background: url('../../../../../assets/SVG/Dummy-Logo12.svg') no-repeat;
+    margin: 0;
+}
+.username{
+  padding-top: 30px;
+  font-weight: 700;
+  font-size: 16px;
+  margin-bottom: 0;
+  color: #000000;
+  font-family:'Open Sans-Bold_0';
+}
+.membership{
+  padding-left: 30px;
+  padding-top: 6px;
+  font-family: 'OpenSans-Regular_0';
+  font-size: 14px;
+  color: #000000;
+}
+.user_list{
+  border: 1px solid #fff;
+    /* padding: 20px; */
+    box-shadow: 0 1px 0 0 whitesmoke;
+    color: #404040;
+}
+.icon.logout i {
+  background: url(/assets/images/icons/logout1.svg) center center no-repeat;
+}
+.membership i {
+  background: url(/assets/images/icons/membership.svg) center center no-repeat;
+}
+.icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 25px 20px 25px 20px;
+}
+
+.icon i {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+::ng-deep .nav-tabs .nav-item {
+  margin: 0;
+}
+.mob-icon {
+  width: 20px;
+  height: 20px;
+}
+.ticket {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 0;
+}
+.ticket + .ticket {
+  border-top:  1px solid #dee2e6;
+}
+.ticket .info {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+.ticket.family-link {
+  flex-direction: column;
+}
+.ticket.family-link .info {
+  width: 42%;
+}
+.ticket .info span {
+  font-family: "Open Sans-Bold_0";
+  padding-bottom: 6px;
+}
+.ticket .info small {
+  font-size: 13px;
+  color: #848484;
+}
+.t-center th, .t-center td {
+  text-align: center;
+  border-width: 1px;
+  padding: 10px;
+}
+.t-center th {
+  background: #f5f8fa;
+}
+::ng-deep .ticket.family-link .input-group {
+  width: 180px;
+}
+::ng-deep .ticket.family-link .input-group input {
+  font-size: 14px;
+}
+::ng-deep .ticket.family-link .input-group .input-group-text {
+  font-size: 14px;
+  background: #007bff;
+  color: #fff;
+  border-color: #007bff;
+  cursor: pointer;
+}
+.ticket.family-link .input-group .input-group-text.disabled {
+  background: #ddd;
+  border-color: #ddd;
+  color: #656565;
+}
+.error {
+  flex-shrink: 0;
+  width: 100%;
+  text-align: right;
+  color: red;
+  margin-top: 10px;
+}
+.ticket.family-link table {
+  border: 1px solid #dee2e6;
+  border-top-width: 0;
+  margin: 0;
+}
+.ticket input.small {
+  width: 50px;
+  text-align: center;
+}
+::ng-deep .input-group-text {
+  background: #ffffff;
+}
+::ng-deep .form-control[readonly] {
+  background: #ffffff;
+}
+.btn {
+  width: 170px;
+}
+
+.input-group-text.disabled {
+  pointer-events: none;
+  background: #eee;
+}
+
+.input-group-prepend.not-allowed,
+.input-group-append.not-allowed {
+  cursor: not-allowed;
+}
+
+.arrow-container .day-container {
+  display: flex;
+  width: 100%;
+}
+
+.sales-section {
+  padding: 4px;
+  background-color: rgb(247, 60, 47, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.day-class {
+  display: flex;
+  width: 120px;
+  background-color: #dcdcdc;
+  align-items: center;
+  position: relative;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 4px 0;
+}
+
+.arrow-right {
+  width: 0;
+  height: 0;
+  border-top: 13px solid transparent;
+  border-bottom: 13px solid transparent;
+  border-left: 7px solid #dcdcdc;
+  position: absolute;
+  right: -7px;
+}
+
+.arrow-container {
+  display: flex;
+  font-size: 11px;
+  border-radius: 4px;
+  overflow: hidden;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.arrow-container .purchased-class {
+  width: 100%;
+  display: flex;
+  background-color: #eee;
+  align-items: center;
+  padding: 4px 0;
+  justify-content: center;
+}
+.purchase-section {
+  padding-right: 15px;
+  padding-left: 20px;
+  position: relative;
+  white-space: pre;
+}
+
+.price-section {
+  display: flex;
+  align-items: baseline;
+  font-size: 16px;
+}
+
+.price-section div:first-child {
+  font-size: 14px;
+}

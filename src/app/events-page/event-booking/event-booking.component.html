@@ -1,0 +1,381 @@
+<div class="main-wrapper">
+    <qcc-sidebar class="side-bar"></qcc-sidebar>
+    <div class="body-wrapper">
+        <div class="nav-wrapper reciprocal"
+            [ngClass]="{ 'QC500': memberShipName === 'QC500',
+            'individual': memberShipName === 'Individual Membership',
+            'platinum': memberShipName === 'Platinum Membership','qcLocal': memberShipName === 'QC Local',
+            'social': memberShipName === 'Social Membership', 'corporate': memberShipName === 'Corporate Membership' }">
+            <div class="menu">
+                <ul>
+                    <li>Event Booking</li>
+                    <li>
+                        <ul>
+                            <li (click)="logout()"><span class="icon logout"><i></i>Logout</span></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="banner-wrapper">
+                <img [src]="bannerUrl">
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="content-wrapper event-booking-table">
+    <p-table [value]="eventBookingData" [scrollable]="true" scrollHeight="400px" frozenWidth="200px"
+        styleClass="event-name">
+        <ng-template pTemplate="frozenheader">
+            <tr>
+                <th>Event Name</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="frozenbody" let-rowData>
+            <tr>
+                <td>
+                    <div class="frozenHeader">
+                        <div>
+                            <p>{{rowData.eventName}}</p>
+                            <img class="download pr-2" (click)="downloadEventDoc(rowData)" *ngIf="rowData.pdfUrl"
+                                src="/assets/SVG/document.svg">
+                        </div>
+                        <div class="arrow-container" *ngIf="!rowData.canSaleEventSheet">
+                            <div class="day-container">
+                                <div class="purchased-class">
+                                    <span class="purchase-section">
+                                        Sale not started
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="arrow-container"
+                            *ngIf="!rowData.day && (rowData.purchasedTickets || rowData.saleClosed)">
+                            <div class="day-container" *ngIf="rowData.purchasedTickets">
+                                <div class="purchased-class">
+                                    <span class="purchase-section">
+                                        Purchased<span> - {{rowData.purchasedTickets}}</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div *ngIf="!rowData.saleClosed && rowData.remainingSeats === 0 && rowData.remainingDiningSeats === 0"
+                                class="sales-section">Sold Out</div>
+                            <div *ngIf="rowData.saleClosed" class="sales-section">Sales Closed</div>
+                        </div>
+
+                        <div class="arrow-container" *ngIf="rowData.day">
+                            <div class="day-container">
+                                <div class="day-class" [class.w-100]="!rowData.purchasedTickets">
+                                    <span class="ng-star-inserted">Day {{rowData.day}}</span>
+                                    <span class="arrow-right" *ngIf="rowData.purchasedTickets"></span>
+                                </div>
+                                <div class="purchased-class" *ngIf="rowData.purchasedTickets">
+                                    <span class="purchase-section">
+                                        Purchased<span> - {{rowData.purchasedTickets}}</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div *ngIf="!rowData.saleClosed && rowData.remainingSeats === 0 && rowData.remainingDiningSeats === 0"
+                                class="sales-section">Sold Out</div>
+                            <div *ngIf="rowData.saleClosed" class="sales-section">Sales Closed</div>
+                        </div>
+
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th class="text-center" style="width:160px">Member Tickets</th>
+                <th class="text-center" style="width:160px">Guest Tickets</th>
+                <th class="text-center" style="width:160px">Child Tickets</th>
+                <th class="text-center" style="width:160px"
+                    *ngIf="membershipDetails.name === 'QC500' || membershipDetails.name === 'QCC Ambassadors'">
+                    Complementary</th>
+                <ng-container *ngIf="!memberShipCategory.isPlatinumUser">
+                    <th class="text-center" style="width:160px" *ngIf="membershipDetails.familyLinking">Family Linking
+                    </th>
+                </ng-container>
+                <th class="text-center" style="width:160px" *ngIf="membershipDetails.dining">Dining (optional extra)</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-index="rowIndex">
+            <tr>
+                <td style="width:160px">
+                    <div class="input-container">
+                        <div class="price-section">
+                            <div>$</div>
+                            <div>
+                                {{rowData.memberTicketDiscountedPrice ? rowData.memberTicketDiscountedPrice : rowData.memberTicketPrice}}
+                            </div>
+                        </div>
+                        <div class="input-group counter">
+                            <div class="input-group-prepend"
+                                [ngClass]="{ 'not-allowed': rowData['totalMemberTickets'] === 0 || rowData['totalMemberTickets'] < 0 || (rowData.purchasedMemberTickets && rowData['totalMemberTickets'] === rowData.purchasedMemberTickets)}">
+                                <div class="input-group-text" (click)="subNumber('totalMemberTickets', index)"
+                                    [ngClass]="{ 'disabled': rowData['totalMemberTickets'] === 0 || rowData['totalMemberTickets'] < 0 || (rowData.purchasedMemberTickets && rowData['totalMemberTickets'] === rowData.purchasedMemberTickets) }">
+                                    <img src="/assets/images/icons/minus.svg"></div>
+                            </div>
+                            <input type="text" readonly class="form-control" value="{{rowData['totalMemberTickets']}}">
+                            <div class="input-group-append"
+                                [ngClass]="{ 'not-allowed': !rowData.canSaleEventSheet || rowData['totalMemberTickets'] === membershipDetails['memberTickets'] || rowData['totalMemberTickets'] === rowData['totalMembershipTicketForEvent'] || !rowData.memberTickets || rowData.saleClosed || 
+                                (rowData['remainingSeats']  === rowData['totalMemberTickets'] + rowData['totalGuestTickets'] + rowData['totalChildTickets']  + rowData.familyLinking.length  + rowData['complementary'] -
+                                (rowData.purchasedTickets ? (rowData.purchasedMemberTickets ? rowData.purchasedMemberTickets: 0) + (rowData.purchasedGuestTickets ? rowData.purchasedGuestTickets : 0) + (rowData.purchasedChildTickets ? rowData.purchasedChildTickets : 0) + (rowData.purchasedComplimentryTickets ? rowData.purchasedComplimentryTickets : 0) + (rowData.linkedFamilyMemberNo ? rowData.linkedFamilyMemberNo.length : 0) : 0))}">
+                                <div class="input-group-text" (click)="addNumber('totalMemberTickets', index)"
+                                    [ngClass]="{ 'disabled': !rowData.canSaleEventSheet || rowData['totalMemberTickets'] === membershipDetails['memberTickets'] || rowData['totalMemberTickets'] === rowData['totalMembershipTicketForEvent'] || rowData.saleClosed || !rowData.memberTickets ||
+                                    (rowData['remainingSeats']  === rowData['totalMemberTickets'] + rowData['totalGuestTickets'] + rowData['totalChildTickets']  + rowData.familyLinking.length  + rowData['complementary'] -
+                                (rowData.purchasedTickets ? (rowData.purchasedMemberTickets ? rowData.purchasedMemberTickets: 0) + (rowData.purchasedGuestTickets ? rowData.purchasedGuestTickets : 0) + (rowData.purchasedChildTickets ? rowData.purchasedChildTickets : 0) + (rowData.purchasedComplimentryTickets ? rowData.purchasedComplimentryTickets : 0) + (rowData.linkedFamilyMemberNo ? rowData.linkedFamilyMemberNo.length : 0) : 0))}">
+                                    <img src="assets/images/icons/plus.svg">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td style="width:160px">
+                    <div class="input-container">
+                        <div class="price-section">
+                            <div *ngIf="rowData.guestTicketPrice">$</div>
+                            <div>
+                                {{rowData.guestTicketPrice ? rowData.guestTicketPrice : 'N/A'}}
+                            </div>
+                        </div>
+
+                        <div class="input-group counter">
+                            <div class="input-group-prepend"
+                                [ngClass]="{ 'not-allowed': rowData['totalGuestTickets'] === 0 || rowData['totalGuestTickets'] < 0 || (rowData.purchasedGuestTickets && rowData['totalGuestTickets'] === rowData.purchasedGuestTickets) }">
+                                <div class="input-group-text" (click)="subNumber('totalGuestTickets', index)"
+                                    [ngClass]="{ 'disabled': rowData['totalGuestTickets'] === 0 || rowData['totalGuestTickets'] < 0 || (rowData.purchasedGuestTickets && rowData['totalGuestTickets'] === rowData.purchasedGuestTickets)  }">
+                                    <img src="assets/images/icons/minus.svg"></div>
+                            </div>
+                            <input type="text" readonly class="form-control" value="{{rowData['totalGuestTickets']}}">
+                            <div class="input-group-append"
+                                [ngClass]="{'not-allowed': !rowData.canSaleEventSheet || rowData['totalGuestTickets'] === membershipDetails['guestTickets'] || rowData.saleClosed  || !rowData.guestTickets ||
+                                (rowData['remainingSeats']  === rowData['totalMemberTickets'] + rowData['totalGuestTickets'] + rowData['totalChildTickets']  + rowData.familyLinking.length  + rowData['complementary'] -
+                                (rowData.purchasedTickets ? (rowData.purchasedMemberTickets ? rowData.purchasedMemberTickets: 0) + (rowData.purchasedGuestTickets ? rowData.purchasedGuestTickets : 0) + (rowData.purchasedChildTickets ? rowData.purchasedChildTickets : 0) + (rowData.purchasedComplimentryTickets ? rowData.purchasedComplimentryTickets : 0) + (rowData.linkedFamilyMemberNo ? rowData.linkedFamilyMemberNo.length : 0) : 0))}">
+                                <div class="input-group-text" (click)="addNumber('totalGuestTickets', index)"
+                                    [ngClass]="{'disabled': !rowData.canSaleEventSheet || rowData['totalGuestTickets'] === membershipDetails['guestTickets'] || rowData.saleClosed  || !rowData.guestTickets ||
+                                    (rowData['remainingSeats']  === rowData['totalMemberTickets'] + rowData['totalGuestTickets'] + rowData['totalChildTickets']  + rowData.familyLinking.length  + rowData['complementary'] -
+                                (rowData.purchasedTickets ? (rowData.purchasedMemberTickets ? rowData.purchasedMemberTickets: 0) + (rowData.purchasedGuestTickets ? rowData.purchasedGuestTickets : 0) + (rowData.purchasedChildTickets ? rowData.purchasedChildTickets : 0) + (rowData.purchasedComplimentryTickets ? rowData.purchasedComplimentryTickets : 0) + (rowData.linkedFamilyMemberNo ? rowData.linkedFamilyMemberNo.length : 0) : 0))}">
+                                    <img src="assets/images/icons/plus.svg">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td style="width:160px">
+                    <div class="input-container">
+                        <div class="price-section">
+                            <div *ngIf="rowData.childTicketPrice">$</div>
+                            <div>
+                                {{rowData.childTicketPrice ? rowData.childTicketPrice : 'N/A'}}
+                            </div>
+                        </div>
+
+                        <div class="input-group counter">
+                            <div class="input-group-prepend"
+                                [ngClass]="{ 'not-allowed': rowData['totalChildTickets'] === 0 || rowData['totalChildTickets'] < 0 || (rowData.purchasedChildTickets && rowData['totalChildTickets'] === rowData.purchasedChildTickets) }">
+                                <div class="input-group-text" (click)="subNumber('totalChildTickets', index)"
+                                    [ngClass]="{ 'disabled': rowData['totalChildTickets'] === 0 || rowData['totalChildTickets'] < 0  || (rowData.purchasedChildTickets && rowData['totalChildTickets'] === rowData.purchasedChildTickets)}">
+                                    <img src="assets/images/icons/minus.svg"></div>
+                            </div>
+                            <input type="text" readonly class="form-control" value="{{rowData['totalChildTickets']}}">
+                            <div class="input-group-append"
+                                [ngClass]="{'not-allowed': !rowData.canSaleEventSheet || rowData['totalChildTickets'] === membershipDetails['childTickets'] || rowData.saleClosed || !rowData.childTickets ||
+                                (rowData['remainingSeats']  === rowData['totalMemberTickets'] + rowData['totalGuestTickets'] + rowData['totalChildTickets']  + rowData.familyLinking.length  + rowData['complementary'] -
+                                (rowData.purchasedTickets ? (rowData.purchasedMemberTickets ? rowData.purchasedMemberTickets: 0) + (rowData.purchasedGuestTickets ? rowData.purchasedGuestTickets : 0) + (rowData.purchasedChildTickets ? rowData.purchasedChildTickets : 0) + (rowData.purchasedComplimentryTickets ? rowData.purchasedComplimentryTickets : 0) + (rowData.linkedFamilyMemberNo ? rowData.linkedFamilyMemberNo.length : 0) : 0))}">
+                                <div class="input-group-text" (click)="addNumber('totalChildTickets', index)"
+                                    [ngClass]="{'disabled': !rowData.canSaleEventSheet || rowData['totalChildTickets'] === membershipDetails['childTickets'] || rowData.saleClosed  || !rowData.childTickets ||
+                                    (rowData['remainingSeats']  === rowData['totalMemberTickets'] + rowData['totalGuestTickets'] + rowData['totalChildTickets']  + rowData.familyLinking.length  + rowData['complementary'] -
+                                (rowData.purchasedTickets ? (rowData.purchasedMemberTickets ? rowData.purchasedMemberTickets: 0) + (rowData.purchasedGuestTickets ? rowData.purchasedGuestTickets : 0) + (rowData.purchasedChildTickets ? rowData.purchasedChildTickets : 0) + (rowData.purchasedComplimentryTickets ? rowData.purchasedComplimentryTickets : 0) + (rowData.linkedFamilyMemberNo ? rowData.linkedFamilyMemberNo.length : 0) : 0))}">
+                                    <img src="assets/images/icons/plus.svg">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+
+                <td style="width:160px"
+                    *ngIf="membershipDetails.name === 'QC500' || membershipDetails.name === 'QCC Ambassadors'">
+                    <div class="input-container text-center text-nowrap">
+                        <ng-container *ngIf="rowData['complimentaryTicketsAnnual']">
+                            Only {{annualComplementary}} left. (till
+                            31-Dec-{{currentYear}})
+                        </ng-container>
+                        <ng-container *ngIf="rowData['complimentaryTicketsPerStadiumEvent']">
+                            Only {{rowData['complimentaryTicketsPerStadiumEvent']}} left.
+                        </ng-container>
+                        <ng-container
+                            *ngIf="!rowData['complimentaryTicketsPerStadiumEvent'] && !rowData['complimentaryTicketsAnnual']">
+                            N/A
+                        </ng-container>
+                        <div class="input-group counter">
+                            <div class="input-group-prepend"
+                                [ngClass]="{ 'not-allowed': rowData['complementary'] === 0 || rowData['complementary'] < 0 || (remainingAnnualComplementary && remainingAnnualComplementary === annualComplementary)}">
+                                <div class="input-group-text" (click)="subNumber('complementary', index)"
+                                    [ngClass]="{ 'disabled': rowData['complementary'] === 0 || rowData['complementary'] < 0 || (remainingAnnualComplementary && remainingAnnualComplementary === annualComplementary)}">
+                                    <img src="assets/images/icons/minus.svg"></div>
+                            </div>
+                            <input type="text" readonly class="form-control" value="{{rowData['complementary']}}">
+                            <div class="input-group-append"
+                                [ngClass]="{ 'not-allowed': !rowData.canSaleEventSheet || rowData.complimentaryTicketsPerStadiumEvent + (rowData['purchasedComplimentryTickets'] ? rowData['purchasedComplimentryTickets'] : 0)  === rowData['complementary'] || (!rowData['complimentaryTicketsAnnual'] && !rowData['complimentaryTicketsPerStadiumEvent']) ||
+                                complimentaryTicketsAnnual === rowData['complementary'] || isComplementaryTicketExists || rowData.saleClosed ||
+                                (rowData['remainingSeats']  === rowData['totalMemberTickets'] + rowData['totalGuestTickets'] + rowData['totalChildTickets']  + rowData.familyLinking.length  + rowData['complementary'] -
+                                (rowData.purchasedTickets ? (rowData.purchasedMemberTickets ? rowData.purchasedMemberTickets: 0) + (rowData.purchasedGuestTickets ? rowData.purchasedGuestTickets : 0) + (rowData.purchasedChildTickets ? rowData.purchasedChildTickets : 0) + (rowData.purchasedComplimentryTickets ? rowData.purchasedComplimentryTickets : 0) + (rowData.linkedFamilyMemberNo ? rowData.linkedFamilyMemberNo.length : 0) : 0))}">
+                                <div class="input-group-text" (click)="addNumber('complementary', index)"
+                                    [ngClass]="{ 'disabled': !rowData.canSaleEventSheet || rowData.complimentaryTicketsPerStadiumEvent + (rowData['purchasedComplimentryTickets'] ? rowData['purchasedComplimentryTickets'] : 0) === rowData['complementary']  ||
+                                    complimentaryTicketsAnnual === rowData['complementary'] || isComplementaryTicketExists || rowData.saleClosed || (!rowData['complimentaryTicketsAnnual'] && !rowData['complimentaryTicketsPerStadiumEvent']) ||
+                                    (rowData['remainingSeats']  === rowData['totalMemberTickets'] + rowData['totalGuestTickets'] + rowData['totalChildTickets']  + rowData.familyLinking.length  + rowData['complementary'] -
+                                    (rowData.purchasedTickets ? (rowData.purchasedMemberTickets ? rowData.purchasedMemberTickets: 0) + (rowData.purchasedGuestTickets ? rowData.purchasedGuestTickets : 0) + (rowData.purchasedChildTickets ? rowData.purchasedChildTickets : 0) + (rowData.purchasedComplimentryTickets ? rowData.purchasedComplimentryTickets : 0) + (rowData.linkedFamilyMemberNo ? rowData.linkedFamilyMemberNo.length : 0) : 0))}">
+                                    <img src="assets/images/icons/plus.svg">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <ng-container *ngIf="!memberShipCategory.isPlatinumUser">
+                    <td style="width:160px" class="text-center" *ngIf="membershipDetails.familyLinking">
+                        <a class="text-primary" (click)="addFamily(index);"
+                            [ngClass]="{'disabled': !rowData.canSaleEventSheet || rowData.saleClosed || (rowData['remainingSeats']  === rowData['totalMemberTickets'] + rowData['totalGuestTickets'] + rowData['totalChildTickets']  + rowData.familyLinking.length  + rowData['complementary'] -
+                            (rowData.purchasedTickets ? (rowData.purchasedMemberTickets ? rowData.purchasedMemberTickets: 0) + (rowData.purchasedGuestTickets ? rowData.purchasedGuestTickets : 0) + (rowData.purchasedChildTickets ? rowData.purchasedChildTickets : 0) + (rowData.purchasedComplimentryTickets ? rowData.purchasedComplimentryTickets : 0) + (rowData.linkedFamilyMemberNo ? rowData.linkedFamilyMemberNo.length : 0) : 0))}">
+                            <ng-container *ngIf="rowData.familyLinking.length > 0 else noLinked">
+                                {{rowData.familyLinking.length}} Linked
+                            </ng-container>
+                            <ng-template #noLinked>
+                                Add
+                            </ng-template>
+                        </a>
+                    </td>
+                </ng-container>
+                <td style="width:160px" *ngIf="membershipDetails.dining">
+                    <div class="input-container">
+                        <div class="price-section">
+                            <div *ngIf="rowData.diningTicketPrice">$</div>
+                            <div>
+                                {{rowData.diningTicketPrice ? rowData.diningTicketPrice : 'N/A'}}
+                            </div>
+                        </div>
+
+                        <div class="input-group counter">
+                            <div class="input-group-prepend"
+                                [ngClass]="{ 'not-allowed': rowData['restaurantTickets'] === 0 || rowData['restaurantTickets'] < 0  || (rowData.purchasedDininigTickets && rowData['restaurantTickets'] === rowData.purchasedDininigTickets) }">
+                                <div class="input-group-text" (click)="subNumber('restaurantTickets', index)"
+                                    [ngClass]="{ 'disabled': rowData['restaurantTickets'] === 0 || rowData['restaurantTickets'] < 0  || (rowData.purchasedDininigTickets && rowData['restaurantTickets'] === rowData.purchasedDininigTickets)}">
+                                    <img src="assets/images/icons/minus.svg"></div>
+                            </div>
+                            <input type="text" readonly class="form-control" value="{{rowData['restaurantTickets']}}">
+                            <div class="input-group-append"
+                                [ngClass]="{ 'not-allowed': !rowData.canSaleEventSheet || rowData['restaurantTickets'] === rowData['remainingDiningSeats'] || rowData.saleClosed || !rowData.dining || rowData.restaurantTickets === rowData['totalMemberTickets'] + rowData['totalGuestTickets'] + rowData['totalChildTickets'] + rowData['complementary'] + rowData.remainingAdditionalDiningAboveStadiumTickets + rowData.familyLinking.length}">
+                                <div class="input-group-text" (click)="addNumber('restaurantTickets', index)"
+                                    [ngClass]="{ 'disabled': !rowData.canSaleEventSheet || rowData['restaurantTickets'] === rowData['remainingDiningSeats'] + (rowData['purchasedDininigTickets'] ? rowData.purchasedDininigTickets : 0) || rowData.saleClosed || !rowData.dining || 
+                                    rowData.restaurantTickets === rowData['totalMemberTickets'] + rowData['totalGuestTickets'] + rowData['totalChildTickets'] + rowData['complementary'] + rowData.remainingAdditionalDiningAboveStadiumTickets + rowData.familyLinking.length}">
+                                    <img src="assets/images/icons/plus.svg">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <div class="text-center my-4">
+        <button type="button" (click)="paymentRedirection();" *ngIf="!display" [disabled]="isEligibleToBuy()"
+            class="btn btn-purple reciprocal"
+            [ngClass]="{ 'QC500': memberShipName === 'QC500',
+            'individual': memberShipName === 'Individual Membership',
+            'platinum': memberShipName === 'Platinum Membership','qcLocal': memberShipName === 'QC Local',
+            'social': memberShipName === 'Social Membership', 'corporate': memberShipName === 'Corporate Membership' }">
+            <div class="pay-btn">
+                <div>Pay&nbsp;</div>
+                <div>
+                    <div>$</div>
+                    <div>{{pay}}</div>
+                </div>
+            </div>
+        </button>
+    </div>
+</div>
+
+<!-- Upgrade Membership -->
+<!-- <ng-container *ngIf="display"> -->
+<p-dialog #dialog header=" Upgrade Your Membership" [(visible)]="display" [modal]="true" [draggable]="false"
+    [resizable]="false" styleClass="cutom-modal upgrade" [closable]="false" (onHide)="redirectToClub()">
+    <div class="body-content">
+        <div class="container p-3"> {{memberShipName}} holders aren’t able to buy tickets to stadium events.
+            Please click the link to access the member application form if you wish to upgrade your membership.</div>
+    </div>
+    <p-footer>
+        <button type="button" class="btn btn-gold mb-2"><a class="btn_popup"
+                href="https://www.qcclub.com.au/membership-packages/">Upgrade Membership</a></button>
+    </p-footer>
+</p-dialog>
+<!-- </ng-container> -->
+
+
+
+<!-- Family linking modal -->
+<p-dialog #familyLinkingModal header=" Add/View Linked Family" [(visible)]="familyLinkingPopup" [draggable]="false"
+    *ngIf="familyLinkingPopup" [resizable]="false" [modal]="true" styleClass="cutom-modal">
+    <div class="body-content">
+        <div class="container p-0">
+            <div class="col-12 p-0">
+                To purchase tickets for other Queensland Cricketers' Club members simply enter their member number and
+                click 'Add'. This will automatically add a mmeber ticket to your booking for them.
+            </div>
+        </div>
+        <div class="container mt-2 mb-2 d-flex p-0">
+            <div class="col-9 p-0">
+                <input type="text" class="form-control" placeholder="Add Family" (change)="trimValue($event);"
+                    [(ngModel)]="familyNumber">
+            </div>
+            <div class="col-3 p-0">
+                <button type="button" class="btn btn-gold mb-2 memberButton pull-right"
+                    [disabled]="!familyNumber || familyNumber===''" (click)="ValidateFamily(familyNumber);">Add</button>
+            </div>
+        </div>
+        <div class="container col-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>S.No.</th>
+                        <th>Member No.</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngIf="!familyData.length">
+                        <td colspan="3">No Member is Linked.</td>
+                    </tr>
+                    <ng-container *ngIf="familyData.length">
+                        <tr *ngFor="let item of familyData;let i= index;">
+                            <td>{{i+1}}</td>
+                            <td>{{item}}</td>
+                            <td class="text-right"><i class="fa fa-trash" (click)="removeLinking(i)"
+                                    *ngIf="linkedFamily.indexOf(item) < 0"></i></td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <p-footer>
+        <button type="button" class="btn btn-gold mb-2 m-0">
+            <a class="btn_popup" (click)="familyLinkingPopup = false;familyData = [];linkedFamily = []">Done</a>
+        </button>
+    </p-footer>
+</p-dialog>
+
+
+<!-- Membership Expired -->
+<p-dialog #dialog header="Membership Expired" [(visible)]="memberShipExpired" [modal]="true" *ngIf="memberShipExpired"
+    [draggable]="false" [resizable]="false" styleClass="cutom-modal" [closable]="false">
+    <div class="body-content">
+        <div class="container p-3">Your membership looks to have expired. Please contact us to
+            renew your membership or if you believe this is a mistake.
+        </div>
+    </div>
+    <p-footer>
+        <button type="button" class="btn btn-gold mb-2"><a class="btn_popup"
+                href="https://www.qcclub.com.au/contact/">Contact</a></button>
+    </p-footer>
+</p-dialog>

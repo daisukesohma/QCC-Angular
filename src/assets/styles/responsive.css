@@ -1,0 +1,96 @@
+@media (min-width: 1200px) {}
+
+@media (min-width: 992px) {}
+
+@media (max-width: 992px) {
+    .navbar-brand img {
+        margin-top: 10px !important;
+        width: 70px !important;
+    }
+
+    .card {
+        width: 95% !important;
+    }
+
+    .for-dates {
+        text-align: left !important;
+        padding: 5px !important;
+
+    }
+
+    .event_name {
+        height: 30px !important;
+    }
+
+    .card-text {
+        height: 45px !important;
+        line-height: 21px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    div.buyTicket {
+        display: block;
+        position: relative;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .buyTicket a.buyTicket {
+        display: inline-block;
+    }
+
+    .recentView {
+        height: auto !important;
+    }
+
+    .rb-box-img {
+        padding-right: 0px;
+    }
+
+    .smt-2 {
+        margin-top: .5rem !important;
+    }
+
+    .event_footer {
+        padding: 10px 0 30px;
+    }
+
+    .copyright {
+        order: 2;
+    }
+
+    .footer_alignment {
+        text-align: center;
+    }
+
+}
+
+@media (min-width: 768px) {
+    .buyTicket a.buyTicket {
+        display: none;
+    }
+
+}
+@media (max-width: 640px) {
+    .cutom-modal.ui-dialog {
+        margin: 0 15px;
+        width: calc(100% - 30px) !important;
+    }
+}
+@media (max-width: 514px) {
+.slideText {
+    display: block !important;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 576px) {
+    .start_date {
+        display: contents;
+    }
+    .for-dates {
+        padding: 10px 0 8px 18px !important;
+    }
+}

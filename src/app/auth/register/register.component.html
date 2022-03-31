@@ -1,0 +1,215 @@
+<div class="limiter">
+  <div class="container-login100">
+    <div class="wrap-login100">
+      <form class="login100-form validate-form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <span class="login100-form-logo">
+          <img src="../../../assets/SVG/Dummy-Logo12.svg" routerLink="/">
+        </span>
+
+        <div class="row">
+
+          <div class="col-md-6">
+            <div class="wrap-input100 validate-input" data-validate="Enter username">
+              <input class="input100" class="form-control" type="text" name="username" formControlName="firstName"
+                [(ngModel)]="registerData.firstName" placeholder="First Name*">
+              <div
+                *ngIf="registerForm.controls['firstName'].invalid  && 
+                        (registerForm.controls['firstName'].dirty || registerForm.controls['firstName'].touched  && registerForm.controls['firstName'].errors.required)"
+                class="col-sm-12 col-md-12 col-lg-12" style="padding: 2px;">
+                <div class="alert alert-danger list-inline-item"
+                  *ngIf="registerForm.controls['firstName'].errors.required">
+                  First Name Required
+                </div>
+                <p *ngIf="registerForm.controls.firstName.get && registerForm.controls.firstName.hasError('pattern')"
+                  style="color:#EE5333;font-size: 13px;"> Only alphanumeric characters are allowed!</p>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="wrap-input100 validate-input" data-validate="Enter username">
+              <input class="input100" class="form-control" type="text" name="username" formControlName="lastName"
+                [(ngModel)]="registerData.lastName" placeholder="Last Name*">
+              <div
+                *ngIf="registerForm.controls['lastName'].invalid && 
+                            (registerForm.controls['lastName'].dirty || registerForm.controls['lastName'].touched  && registerForm.controls['lastName'].errors.required)"
+                class="col-sm-12 col-md-12 col-lg-12" style="padding: 2px;">
+                <div class="alert alert-danger list-inline-item"
+                  *ngIf="registerForm.controls['lastName'].errors.required">
+                  Last Name Required
+                </div>
+                <p *ngIf="registerForm.controls.lastName.get && registerForm.controls.lastName.hasError('pattern')"
+                  style="color:#EE5333;font-size: 13px;"> Only alphanumeric characters are allowed!</p>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="wrap-input100 validate-input" data-validate="Enter password">
+          <input class="input100" class="form-control" type="email" name="pass" formControlName="email"
+            [(ngModel)]="registerData.email" placeholder="Email*">
+          <div *ngIf="emailAlredyExist" class="alert alert-danger exist" style="color:#EE5333; margin-top: 34px;">
+            Email already exist.
+          </div>
+          <div
+            *ngIf="registerForm.controls['email'].invalid && 
+                        (registerForm.controls['email'].dirty || registerForm.controls['email'].touched  && registerForm.controls['email'].errors.required)"
+            class="col-sm-12 col-md-12 col-lg-12" style="padding: 2px;">
+            <div class="alert alert-danger list-inline-item" *ngIf="registerForm.controls['email'].errors.required">
+              Email Id Required
+            </div>
+            <p *ngIf="registerForm.controls.email.touched && registerForm.controls.email.hasError('pattern')"
+              style="color:#EE5333">Email should be the real one!</p>
+          </div>
+        </div>
+
+        <div class="wrap-input100 validate-input" data-validate="Enter password">
+
+          <div class="group-number input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text country_code">+61</span>
+            </div>
+            <input class="input100" class="form-control" type="number" name="pass" formControlName="mobileNumber"
+              [(ngModel)]="registerData.mobileNumber" placeholder="Mobile Number*">
+          </div>
+          <div
+            *ngIf="registerForm.controls['mobileNumber'].invalid && 
+                            (registerForm.controls['mobileNumber'].dirty || registerForm.controls['mobileNumber'].touched  && registerForm.controls['mobileNumber'].errors.required)"
+            class="col-sm-12 col-md-12 col-lg-12" style="padding: 2px;">
+            <div class="alert alert-danger list-inline-item"
+              *ngIf="registerForm.controls['mobileNumber'].errors.required">
+              Mobile No. Required
+            </div>
+            <p *ngIf="registerForm.controls.mobileNumber.touched && registerForm.controls.mobileNumber.hasError('pattern')"
+              style="color:#EE5333">The Number must be valid no.!</p>
+          </div>
+        </div>
+
+        <div class="wrap-input100 validate-input" data-validate="Enter password">
+          <input class="input100" (input)="matchPassword()" class="form-control" type="password" name="pass"
+            formControlName="password" [(ngModel)]="registerData.password" placeholder="Password*">
+          <div
+            *ngIf="registerForm.controls['password'].invalid && 
+           (registerForm.controls['password'].dirty || registerForm.controls['password'].touched &&  registerForm.controls['password'].errors.required)"
+            class="col-sm-12 col-md-12 col-lg-12" style="padding: 2px;">
+            <div class="alert alert-danger list-inline-item" *ngIf="registerForm.controls['password'].errors.required">
+              Password Required
+            </div>
+          </div>
+        </div>
+
+        <div class="wrap-input100 validate-input" data-validate="Enter password">
+          <input class="input100" (input)="matchPassword()" class="form-control" type="password" name="confirmPassword"
+            formControlName="confirmPassword" [(ngModel)]="registerData.confirmPassword"
+            placeholder="Confirm Password*">
+          <div
+            *ngIf="registerForm.controls['confirmPassword'].invalid && 
+           (registerForm.controls['confirmPassword'].dirty || registerForm.controls['confirmPassword'].touched &&  registerForm.controls['confirmPassword'].errors.required)"
+            class="col-sm-12 col-md-12 col-lg-12" style="padding: 2px;">
+            <div class="alert alert-danger list-inline-item"
+              *ngIf="registerForm.controls['confirmPassword'].errors.required">
+              Password Required
+            </div>
+          </div>
+          <div *ngIf="invalid" class="confirm_password">
+            Password does not match!
+          </div>
+        </div>
+
+
+        <!-- <div class="form-group">
+        <div class="row">
+          <div class="col-25">
+            <label class="label required">Reciprocal Club ID</label>
+          </div>
+          <div class="col-75">
+              <select type="text" [(ngModel)]="usersData.reciprocalClubId" formControlName="reciprocalClubId" name="reciprocalClubId"
+              class="form-control">
+              <option value="undefined" [selected]="usersData.reciprocalClubId === null" disabled>Select Reciprocal Club Id</option>
+              <ng-container *ngFor="let clubs of clubsData">
+                <option value={{clubs.id}}>{{clubs.clubNo}}</option>
+              </ng-container>
+            </select>
+          </div>
+        </div>
+      </div> -->
+
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="wrap-input100 validate-input" data-validate="Enter username">
+              <select type="text" class="drop_down" [(ngModel)]="registerData.reciprocalClubId"
+                formControlName="reciprocalClubId" name="reciprocalClubId" class="form-control">
+                <option value="undefined" [selected]="registerData.reciprocalClubId === null">Select Reciprocal Club
+                  Name</option>
+                <option value="{{clubs.id}}" *ngFor="let clubs of clubsData">{{clubs.clubNo}}</option>
+              </select>
+            </div>
+
+          </div>
+
+          <div class="col-md-12" *ngIf="registerData.reciprocalClubId && registerData.reciprocalClubId !== 'undefined'">
+            <div class="wrap-input100 validate-input" data-validate="Enter username">
+              <input class="input100" class="form-control" type="" name="username" formControlName="recClubMemberNo"
+                [(ngModel)]="registerData.recClubMemberNo" placeholder="Club Member No.">
+              <div
+                *ngIf="registerForm.controls['recClubMemberNo'].invalid  && 
+                  (registerForm.controls['recClubMemberNo'].dirty || registerForm.controls['recClubMemberNo'].touched && registerForm.controls['recClubMemberNo'].errors.required)"
+                class="col-sm-12 col-md-12 col-lg-12" style="padding: 2px;">
+                <div class="alert alert-danger list-inline-item"
+                  *ngIf="registerForm.controls['recClubMemberNo'].errors.required" style="font-size:13px;float:left;">
+                  Reciprocal Club No. Required
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="memauth">
+          Not a member yet of one of these clubs,
+          <a href="https://www.qcclub.com.au/membership-packages/">Click here</a>
+        </div>
+
+        <div class="wrap-input100 validate-input" data-validate="Enter password">
+          <input class="input100" class="form-control" bsDatepicker  #datePicker="bsDatepicker"
+            [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY',adaptivePosition: true }" type="text" name="date"
+            formControlName="membershipDate" [(ngModel)]="registerData.membershipDate"
+            placeholder="Membership Expiry Date*" id="testdate">
+          <span class="fa fa-calendar"  (click)="datePicker.toggle()"></span>
+          <div
+            *ngIf="registerForm.controls['membershipDate'].invalid  && 
+                                        (registerForm.controls['membershipDate'].dirty || registerForm.controls['membershipDate'].touched && registerForm.controls['membershipDate'].errors.required)"
+            class="col-sm-12 col-md-12 col-lg-12" style="padding: 2px;">
+            <div class="alert alert-danger list-inline-item"
+              *ngIf="registerForm.controls['membershipDate'].errors.required">
+              Date Required
+            </div>
+          </div>
+        </div>
+
+        <div class="container-login100-form-btn">
+
+          <button class="login100-form-btn" type="submit" [disabled]="!registerForm.valid">
+            Sign Up
+          </button>
+        </div>
+        <div class="routerlink">
+          Already a user?
+          <a href="#" routerLink="/login">LogIn</a>
+        </div>
+        <div class="members">
+          "All reciprocal members must present their reciprocal membership club cards to receive their tickets at the
+          gate."
+        </div>
+
+
+
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<div id="dropDownSelect1"></div>

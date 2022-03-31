@@ -1,0 +1,253 @@
+.section-header {
+  margin-bottom: 50px;
+  position: relative;
+}
+
+#cricket {
+  padding-top: 40px;
+  min-height: calc(100vh - 390px);
+}
+
+.section-header::before {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 60px;
+  border: 1px solid #aa8f51;
+  left: calc(50% - 25px);
+  margin-top: -20px;
+  top: auto;
+  bottom: -20px;
+}
+
+.cricket_table {
+  margin-bottom: 0 !important;
+}
+
+.section-header h2 {
+  font-size: 2.5rem;
+  font-family: "Sitka";
+  text-align: center;
+  margin-bottom: 10px;
+  color: #000000;
+  opacity: 1;
+  margin-top: -10px;
+}
+
+.event_name {
+  font-family: "OpenSans-SemiBold";
+  padding: 10px 20px 0;
+  color: #000000;
+  cursor: pointer;
+  font-size: 18px;
+  height: 30px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 0;
+  margin-top: 8px;
+}
+
+.total_Seat {
+  cursor: pointer;
+  color: #a38847 !important;
+}
+
+.for-dates {
+  font-family: "OpenSans-Light";
+  margin-bottom: 5px;
+  padding: 10px 0 10px 5px;
+  color: #1a2f5e;
+}
+
+.card-text {
+  font-size: 14px;
+  font-family: "Arial";
+  height: 40px;
+  line-height: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.event-table-section {
+  margin-top: 45px;
+  padding-bottom: 40px;
+  padding-top: 45px;
+  background-color: #f3f3f3;
+}
+
+.event-table-section h2 {
+  font-size: 35px;
+  color: #000000;
+  font-family: "Sitka";
+}
+a.buyTicket {
+  display: inline-block;
+  background: #a38847;
+  font-family: "Arial";
+  padding: 10px 20px;
+  border-radius: 24px;
+  transition: color ease 0.2s;
+  color: #ffffff;
+}
+
+a.buyTicket:hover {
+  text-decoration: none;
+  color: rgba(255,255,255,0.6);
+}
+
+.table th {
+  text-align: left;
+  font-size: 14px;
+  font-family: "Arial";
+  letter-spacing: 0;
+  color: #808080;
+  opacity: 1;
+  border-top: 0;
+  white-space: nowrap;
+}
+
+.table td {
+  font-size: 14px;
+  color: #000000;
+  font-family: "Arial";
+  white-space: nowrap;
+}
+.table th:first-child, .table td:first-child {
+  padding-left: 0;
+}
+.card {
+  width: 100%;
+  padding: 0 12px;
+  border: 0;
+}
+.card a {
+  color: #a38847 !important;
+  font-weight: 700 !important;
+}
+.card > div {
+  box-shadow: 0px 0px 6px #00000029;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,.125);
+  cursor: pointer;
+  transition: .3s all;
+}
+.card > div:hover {
+  background: #eaf2ff;
+  opacity: .8;
+}
+.card.single {
+  width: 33.33%;
+  margin: 0 auto;
+}
+
+.card.double {
+  width: 66.66%;
+  margin: 0 auto;
+}
+
+a {
+  font-family: "Arial";
+  color: #1a2f5e;
+  font-size: 14px;
+}
+
+.card img {
+  width: 100%;
+  height: 206px;
+  object-fit: fill;
+  cursor: pointer;
+  border-top-right-radius: 12px;
+  border-top-left-radius: 12px;
+}
+
+.team_logo {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+.download {
+  width: 18px;
+}
+.aflFirst,.cricketFirst{
+  display: flex;
+  flex-direction: column;
+}
+.aflFirst > div:first-child,
+.cricketFirst > div:last-child {
+  order: 2;
+}
+.aflFirst > div:last-child,
+.cricketFirst > div:first-child {
+  order: 1;
+}
+@media (max-width: 992px) {
+
+  /* .col-md-4 {
+    margin-bottom: 10px;
+  } */
+  /* .card {
+    margin: auto;
+    width: 100%;
+  } */
+  .w-100.ng-star-inserted {
+    outline: none;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .desktop-btn {
+    display: block;
+  }
+  .mobile-btn {
+    display: none;
+  }
+}
+
+
+@media (max-width: 767px) {
+  .desktop-btn {
+    display: none;
+  }
+  .mobile-btn {
+      display: block;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .card {
+    width: 95% !important;
+    border-radius: 12px;
+  }
+}
+
+.slideText {
+  display: none;
+}
+
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+
+::-webkit-scrollbar:vertical {
+  width: 12px;
+}
+
+::-webkit-scrollbar:horizontal {
+  height: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, .5);
+  border-radius: 10px;
+  border: 2px solid #ffffff;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: #ffffff;
+}

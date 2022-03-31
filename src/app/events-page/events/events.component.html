@@ -1,0 +1,260 @@
+<QCC-header [eventsRef]="eventsRef" [aflRef]="aflRef" [cricketRef]="cricketRef" 
+    [aflData]="aflData" [cricketData]="cricketData"></QCC-header>
+<section class="banner">
+    <div class="container banner-container">
+        <h1>{{userData.bannerHeading ? userData.bannerHeading : ''}}</h1>
+        <p>{{ userData.bannerSubHeading ? userData.bannerSubHeading : ''}}</p>
+    </div>
+</section>
+<section id="cricket">
+    <div #eventsRef class="mb-2">
+        <div class="container" *ngIf="upCommingEventsData.length">
+            <div class="section-header">
+                <h2>Upcoming Events</h2>
+            </div>
+            <owl-carousel-o [options]="customOptions" class="agf">
+                <ng-container>
+                    <ng-template carouselSlide *ngFor="let upCommingEvents of upCommingEventsData">
+                        <div class="card" [ngClass]="{'single': upCommingEventsData.length === 1,
+                    'double': upCommingEventsData.length === 2}" [routerLink]="['/events-detail',upCommingEvents.id]">
+                            <div>
+                                <img src={{upCommingEvents.mediumImageUrl}} alt="Card image cap" />
+                                <div class="row m-0">
+                                    <div class="col-md-12 col-12 col-sm-12 pl-0">
+                                        <h3 class="event_name">
+                                            {{upCommingEvents.name}}</h3>
+                                    </div>
+                                    <div class="col-md-12 col-12 col-sm-12 start_date">
+                                        <p class="for-dates">{{upCommingEvents.startDate | date:'dd MMMM yyyy'}}</p>
+                                    </div>
+                                </div>
+                                <div class="card-body pt-0">
+                                    <p class="card-text" [innerHTML]="upCommingEvents.description"
+                                        *ngIf="upCommingEvents.description"></p>
+                                    <a>View More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </ng-container>
+            </owl-carousel-o>
+            <div class="slideText" *ngIf="upCommingEventsData.length > 1">
+                <i class="fa fa-caret-left"></i> Slide to view More <i class="fa fa-caret-right"></i>
+            </div>
+        </div>
+    </div>
+
+    <div [ngClass]="fixtureLists.cricketEventTablesPosition ? 'cricketFirst' : 'aflFirst'" >
+        <div #aflRef>
+            <div class="event-table-section container-fluid px-md-5" *ngIf="fixtureLists.aflSeason && aflData.length">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8 pr-0 pl-0">
+                            <h2>{{fixtureLists.aflTitle}}</h2>
+                        </div>
+                        <div class="col-md-4 desktop-btn text-right">
+                            <a class="buyTicket" routerLink="/stadium-event">Buy Tickets</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 table-responsive p-0">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Event Name</th>
+                                        <th class="th-sm">{{aflHomeTeam.name}} VS</th>
+                                        <th>Date</th>
+                                        <th class="th-sm">Day</th>
+                                        <th class="th-sm">Club Opens</th>
+                                        <th class="th-sm">Game Starts</th>
+                                        <th style="width: 13%" class="th-sm">Tickets Remaining</th>
+                                        <!-- <th class="th-sm">Action</th> -->
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr *ngFor="let afl of aflData">
+                                        <td>{{afl.name}}</td>
+                                        <td>
+                                            <img class="team_logo"
+                                                src="{{afl.firstTeam.homeTeam ? afl.secondTeam.logoUrl : afl.firstTeam.logoUrl}}">
+                                            {{afl.firstTeam.homeTeam ? afl.secondTeam.name : afl.firstTeam.name}}
+
+                                        </td>
+                                        <td>{{afl.startDate}}</td>
+                                        <td>{{afl.startDay}}</td>
+                                        <td>{{afl.clubOpenTime }}</td>
+                                        <td>{{afl.gameStartTime}}</td>
+                                        <td>
+                                            <ng-container *ngIf="afl.canSaleEventSheet else notStarted">
+                                                <a class="total_Seat" (click)="redirectMobileOrWeb(afl)" *ngIf="userLoggedIn && afl.dayOne.remainingSeats != 0">
+                                                    <ng-container *ngIf="afl.dayOne.remainingSeats < 21">Only
+                                                    </ng-container>
+                                                    {{afl.dayOne.remainingSeats}} left
+                                                    <span *ngIf="afl.totalSeats < 10">Hurry up</span>
+                                                </a>
+                                                <a class="total_Seat" *ngIf="!userLoggedIn" routerLink="/login">View
+                                                    Seats</a>
+                                                <span *ngIf="afl.dayOne.remainingSeats == 0">Sold Out</span>
+                                            </ng-container>
+                                            <ng-template #notStarted>
+                                                Sale starts on {{afl.saleStartDate}}
+                                            </ng-template>
+                                            
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-4 mobile-btn buyTicket">
+                            <a class="buyTicket" routerLink="/stadium-event">Buy Tickets</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div #cricketRef>
+            <div class="event-table-section container-fluid px-md-5 mb-4 cricket_table"
+                *ngIf="fixtureLists.cricketSeason && cricketData.length">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8 pr-0 pl-0">
+                            <h2>{{fixtureLists.cricketTitle}}</h2>
+                        </div>
+                        <div class="col-md-4 desktop-btn text-right">
+                            <a class="buyTicket" routerLink="/stadium-event">Buy Tickets</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 table-responsive p-0">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Event Name</th>
+                                        <th>Event Type</th>
+                                        <th class="th-sm">Team</th>
+                                        <th>Date</th>
+                                        <th class="th-sm">Day</th>
+                                        <th class="th-sm">Club Opens</th>
+                                        <th class="th-sm">Game Starts</th>
+                                        <th style="width: 14%" class="th-sm">Tickets Remaining</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr *ngFor="let cricket of cricketData">
+                                        <td class="text-capitalize">{{cricket.name}}</td>
+                                        <td class="text-capitalize">
+                                            <ng-container *ngIf="cricket.subType === 'testMatch'">Test Match
+                                            </ng-container>
+                                            <ng-container *ngIf="cricket.subType === 'oneDayInternational'">One day
+                                                International</ng-container>
+                                            <ng-container *ngIf="cricket.subType === 'bigBash'">Big Bash</ng-container>
+                                            <ng-container *ngIf="cricket.subType === 'domestic'">Domestic</ng-container>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex">
+                                                <span class="d-flex mr-2"><img class="team_logo mr-1"
+                                                        src="{{cricket.firstTeam.logoUrl}}">
+                                                    {{cricket.firstTeam.name}}</span> vs <span class="d-flex ml-2"><img
+                                                        class="team_logo mr-1"
+                                                        src="{{cricket.secondTeam.logoUrl}}">{{cricket.secondTeam.name}}
+                                                </span>
+                                            </div>
+                                        </td>
+                                        <td>{{cricket.startDate}}</td>
+                                        <td>{{cricket.startDay}}</td>
+                                        <td>{{cricket.clubOpenTime }}</td>
+                                        <td>{{cricket.gameStartTime}}</td>
+                                        <td>
+                                            <ng-container *ngIf="cricket.canSaleEventSheet else notStarted">
+                                                <a class="total_Seat" (click)="redirectMobileOrWeb(cricket)"
+                                                *ngIf="userLoggedIn && !cricket.dayTwo && cricket.dayOne.remainingSeats != 0">
+                                                <ng-container *ngIf="cricket.dayOne.remainingSeats < 21">Only
+                                                </ng-container>
+                                                {{cricket.dayOne.remainingSeats}}
+                                                <ng-container> left</ng-container>
+                                                <span *ngIf="cricket.totalSeats < 10">Hurry up</span>
+                                            </a>
+                                            <a class="total_Seat" (click)="redirectMobileOrWeb(cricket)"
+                                                *ngIf="userLoggedIn && cricket.dayTwo && cricket.testMatchTotalRemainingSeats != 0">
+                                                <ng-container *ngIf="cricket.testMatchTotalRemainingSeats < 21">Only
+                                                </ng-container>
+                                                {{cricket.testMatchTotalRemainingSeats}} left
+                                                <span *ngIf="cricket.totalSeats < 10">Hurry up</span>
+                                            </a>
+                                            <a class="total_Seat" *ngIf="!userLoggedIn" routerLink="/login">View
+                                                Seats</a>
+                                            <span *ngIf="(cricket.subType === 'testMatch' && cricket.dayOne.remainingSeats === 0 && cricket.dayTwo.remainingSeats === 0 && 
+                                                cricket.dayThree.remainingSeats === 0 && cricket.dayFour.remainingSeats === 0 && cricket.dayFive.remainingSeats === 0) 
+                                                || (cricket.subType !== 'testMatch' && cricket.dayOne.remainingSeats === 0)">Sold Out</span>
+                                            </ng-container>
+                                            <ng-template #notStarted>
+                                                Sale starts on {{cricket.saleStartDate}}
+                                            </ng-template>
+                                            
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-4 mobile-btn buyTicket">
+                            <a class="buyTicket" routerLink="/stadium-event">Buy Tickets</a>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+</section>
+<footer class="event_footer">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-3 col-md-offset copyright">
+                <p class="text-center text-md-left">© {{currentYear}} Copyright - Qld Cricketers' Club</p>
+            </div>
+
+            <div class="col-md-9">
+                <div class="text-right text-md-right footer-events">
+                    <ul class="list-unstyled list-inline footer_alignment">
+                        <li class="list-inline-item" *ngIf="upCommingEventsData.length">
+                            <a [ngx-scroll-to]="eventsRef">Events</a>
+                        </li>
+                        <li class="list-inline-item" *ngIf="aflData.length">
+                            <a [ngx-scroll-to]="aflRef">Buy AFL Tickets</a>
+                        </li>
+                        <li class="list-inline-item" *ngIf="cricketData.length">
+                            <a [ngx-scroll-to]="cricketRef">Buy Cricket Tickets</a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="https://www.qcclub.com.au/privacy-policy">
+                                Privacy Policy
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="https://www.qcclub.com.au/terms-and-conditions">
+                                Terms & Conditions
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="https://www.qcclub.com.au/refund-policy">
+                                Refund Policy
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="https://www.qcclub.com.au/sitemap">
+                                Sitemap
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</footer>
